@@ -7,10 +7,10 @@ import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.Properties;
 
-public class ProducerStringAsync {
+public class ProducerAsync {
     private final String bootstrapServers = "127.0.0.1:9092";
 
-    public ProducerStringAsync() {
+    public ProducerAsync() {
         // create properties
         Properties properties = new Properties();
         properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);

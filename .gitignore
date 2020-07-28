@@ -197,7 +197,8 @@ project/plugins/project/
 
 # End of https://www.gitignore.io/api/sbt,java,scala,eclipse,intellij
 
-
-*resources/*.token*
-*resources/*.credential*
+kafka-twitter/src/main/resources/*.credential*
+kafka-twitter/src/main/resources/*.token*
+kafka-elasticsearch/src/main/resources/*.token*
+kafka-elasticsearch/src/main/resources/*.credential*
 

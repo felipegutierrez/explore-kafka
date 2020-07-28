@@ -11,6 +11,7 @@
     <modules>
         <module>kafka-basics</module>
         <module>kafka-twitter</module>
+        <module>kafka-elasticsearch</module>
     </modules>
 
     <properties>
@@ -20,6 +21,9 @@
         <kafka.version>2.5.0</kafka.version>
         <slf4j.version>1.7.30</slf4j.version>
         <scala.version>2.12.7</scala.version>
+        <twitter.hbc.version>2.2.0</twitter.hbc.version>
+        <jackson.version>2.11.1</jackson.version>
+        <elasticsearch.version>7.8.1</elasticsearch.version>
     </properties>
 
     <build>

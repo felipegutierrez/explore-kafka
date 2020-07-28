@@ -14,19 +14,34 @@ import com.twitter.hbc.core.endpoint.StatusesFilterEndpoint;
 import com.twitter.hbc.core.processor.StringDelimitedProcessor;
 import com.twitter.hbc.httpclient.auth.Authentication;
 import com.twitter.hbc.httpclient.auth.OAuth1;
+import org.apache.kafka.clients.producer.*;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 
+/**
+ * Create the Kafka topic:
+ * # ./bin/kafka-topics.sh --create --topic twitter-topic --zookeeper localhost:2181 --partitions 6 --replication-factor 1
+ * <p>
+ * Consuming from Kafka:
+ * # ./bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic twitter-topic --property print.key=true
+ * <p>
+ * Start this application:
+ * # java -jar target/explore-kafka-1.0.jar -app 7 -elements "felipe|simone"
+ */
 public class TwitterProducer {
     private final Logger logger = LoggerFactory.getLogger(TwitterProducer.class);
     private final String twitterAccessTokenFile = "twitter.access.token";
-    private final String elements;
+    private final String bootstrapServers = "127.0.0.1:9092";
+    private final List<String> terms;
     private final ObjectMapper jsonParser;
     private String consumerKey;
     private String consumerSecret;
@@ -40,9 +55,10 @@ public class TwitterProducer {
     public TwitterProducer(String elements) {
         if (Strings.isNullOrEmpty(elements)) {
             // new RuntimeException("the -elements parameter cannot be empty");
-            this.elements = "corona";
+            this.terms = Lists.newArrayList("corona");
         } else {
-            this.elements = elements;
+            String[] values = elements.toLowerCase().split(Pattern.quote("|"));
+            this.terms = Lists.newArrayList(values);
         }
         this.jsonParser = new ObjectMapper();
         loadTokens();
@@ -52,11 +68,22 @@ public class TwitterProducer {
         /** Set up your blocking queues: Be sure to size these properly based on expected TPS of your stream */
         BlockingQueue<String> msgQueue = new LinkedBlockingQueue<String>(1000);
 
-        // create a twitter producer
+        // create a twitter client
         Client hosebirdClient = createTwitterClient(msgQueue);// Attempts to establish a connection.
         hosebirdClient.connect();
 
         // create a kafka producer
+        KafkaProducer<String, String> producer = createKafkaProducer();
+
+        // shutdown hook
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            logger.info("Stopping application with the shutdown hook");
+            logger.info("shutting down Twitter client");
+            hosebirdClient.stop();
+            logger.info("shutting down Kafka producer and sending all messages in-memory");
+            producer.close();
+            logger.info("done!");
+        }));
 
         // loop and send tweets to kafka
         // on a different thread, or multiple different threads....
@@ -70,24 +97,56 @@ public class TwitterProducer {
             }
             if (msg != null) {
                 // logger.info("message: " + msg);
-                extractMessage(msg);
+                // extract key
+                String key = null;
+                for (String k : this.terms) {
+                    if (msg.toLowerCase().contains(k)) {
+                        key = k;
+                    }
+                }
+                // extract message
+                String text = extractMessage(msg);
+                final ProducerRecord<String, String> record = new ProducerRecord<String, String>("twitter-topic", key, text);
+                producer.send(record, new Callback() {
+                    @Override
+                    public void onCompletion(RecordMetadata recordMetadata, Exception e) {
+                        if (e == null) {
+                            // the record was successfully sent
+                            logger.info("message was sent successfully: " + text);
+                        } else {
+                            logger.error("Error on sending message: " + e.getMessage());
+                        }
+                    }
+                });
             }
         }
         logger.info("End of application");
     }
 
-    private void extractMessage(String msg) {
+    private KafkaProducer<String, String> createKafkaProducer() {
+        // create properties
+        Properties properties = new Properties();
+        properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+        properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+        properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+        KafkaProducer<String, String> producer = new KafkaProducer<String, String>(properties);
+
+        return producer;
+    }
+
+    private String extractMessage(String msg) {
         try {
             JsonNode jsonNode = jsonParser.readValue(msg, JsonNode.class);
             boolean hasText = jsonNode.has("text");
             if (hasText) {
                 // message of tweet
                 String text = jsonNode.get("text").asText();
-                logger.info("message: " + text);
+                return text;
             }
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
+        return "";
     }
 
     private void consume() {
@@ -128,7 +187,6 @@ public class TwitterProducer {
         /** Declare the host you want to connect to, the endpoint, and authentication (basic auth or oauth) */
         Hosts hosebirdHosts = new HttpHosts(Constants.STREAM_HOST);
         StatusesFilterEndpoint hosebirdEndpoint = new StatusesFilterEndpoint();
-        List<String> terms = Lists.newArrayList(this.elements);
         hosebirdEndpoint.trackTerms(terms);
 
         // These secrets should be read from a config file

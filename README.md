@@ -15,7 +15,6 @@ Start the producer from the command line or the Java producer Kafka application
 ```
 ./bin/kafka-console-producer.sh --broker-list localhost:9092 --topic first-topic --property parse.key=true --property key.separator=,
 mvn clean package -DskipTests
-java -jar target/explore-kafka-1.0.jar
 ```
 Start the consumer with or without group and key-value properties
 ```
@@ -26,6 +25,7 @@ Start the consumer with or without group and key-value properties
 The Application that reads tweets and publish into Kafka broker is the number 7. But other applications are available.
 
 ```
-java -jar target/explore-kafka-1.0.jar -app 7 -elements "corona|covid|covid-19"
+java -jar kafka-basics/target/kafka-basics-1.0.jar -app [1|2|3|4|5|6]
+java -jar kafka-twitter/target/kafka-twitter-1.0.jar -app 7 -elements "corona|covid|covid-19"
 
 ```

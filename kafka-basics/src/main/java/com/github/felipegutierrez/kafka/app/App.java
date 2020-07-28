@@ -1,12 +1,12 @@
 package com.github.felipegutierrez.kafka.app;
 
+
 import com.github.felipegutierrez.kafka.consumers.ConsumerDemo;
 import com.github.felipegutierrez.kafka.consumers.ConsumerDemoAssignSeek;
 import com.github.felipegutierrez.kafka.consumers.ConsumerDemoWithThreads;
 import com.github.felipegutierrez.kafka.producers.ProducerAsync;
 import com.github.felipegutierrez.kafka.producers.ProducerAsyncCallback;
 import com.github.felipegutierrez.kafka.producers.ProducerAsyncCallbackKeys;
-import com.github.felipegutierrez.kafka.producers.TwitterProducer;
 import com.github.felipegutierrez.kafka.util.Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,12 +68,6 @@ public class App {
                     new ConsumerDemoAssignSeek();
                     app = 0;
                     break;
-                case 7:
-                    System.out.println("App 7 selected: " + TwitterProducer.class.getSimpleName());
-                    TwitterProducer twitterProducer = new TwitterProducer(elements);
-                    twitterProducer.run();
-                    app = 0;
-                    break;
                 default:
                     args = null;
                     System.out.println("No application selected [" + app + "] ");
@@ -87,8 +81,7 @@ public class App {
             logger.info("4 - " + ConsumerDemo.class.getSimpleName());
             logger.info("5 - " + ConsumerDemoWithThreads.class.getSimpleName());
             logger.info("6 - " + ConsumerDemoAssignSeek.class.getSimpleName());
-            logger.info("7 - " + TwitterProducer.class.getSimpleName());
-            logger.info("use: java -jar target/explore-kafka-1.0.jar -app 7 -elements \"corona|covid|covid-19\"");
+            logger.info("use: java -jar kafka-basics/target/kafka-basics-1.0.jar -app [1|2|3|4|5|6]");
         }
     }
 }

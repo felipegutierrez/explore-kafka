@@ -6,6 +6,7 @@ import com.github.felipegutierrez.kafka.consumers.ConsumerDemoWithThreads;
 import com.github.felipegutierrez.kafka.producers.ProducerAsync;
 import com.github.felipegutierrez.kafka.producers.ProducerAsyncCallback;
 import com.github.felipegutierrez.kafka.producers.ProducerAsyncCallbackKeys;
+import com.github.felipegutierrez.kafka.producers.TwitterProducer;
 import com.github.felipegutierrez.kafka.util.Parameters;
 
 public class App {
@@ -57,6 +58,12 @@ public class App {
                 case 6:
                     System.out.println("App 6 selected: " + ConsumerDemoAssignSeek.class.getSimpleName());
                     new ConsumerDemoAssignSeek();
+                    app = 0;
+                    break;
+                case 7:
+                    System.out.println("App 7 selected: " + TwitterProducer.class.getSimpleName());
+                    TwitterProducer twitterProducer = new TwitterProducer();
+                    twitterProducer.run();
                     app = 0;
                     break;
                 default:

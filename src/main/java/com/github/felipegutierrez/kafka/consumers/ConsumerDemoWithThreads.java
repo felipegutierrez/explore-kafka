@@ -24,7 +24,7 @@ public class ConsumerDemoWithThreads {
     private final String topic = "first-topic";
 
     public ConsumerDemoWithThreads() {
-        // latch for dealing for multiple threads
+        // Let us create task that is going to wait for 1 thread before it starts
         CountDownLatch latch = new CountDownLatch(1);
 
         logger.info("Creating the consumer runnable");

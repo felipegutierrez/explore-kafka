@@ -45,7 +45,7 @@ public class App {
         } else {
             logger.info("Applications available");
             logger.info("1 - " + ElasticSearchConsumer.class.getSimpleName());
-            logger.info("use: java -jar kafka-basics/target/kafka-basics-1.0.jar -app [1|2|3|4|5|6]");
+            logger.info("use: java -jar kafka-elasticsearch/target/kafka-elasticsearch-1.0.jar -app 1");
         }
     }
 }

@@ -46,7 +46,7 @@ public class App {
         } else {
             logger.info("Applications available");
             logger.info("1 - " + TwitterProducer.class.getSimpleName());
-            logger.info("use: java -jar kafka-twitter/target/kafka-twitter-1.0.jar -app 7 -elements \"corona|covid|covid-19\"");
+            logger.info("use: java -jar kafka-twitter/target/kafka-twitter-1.0.jar -app 1 -elements \"corona|covid|covid-19\"");
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.github.felipegutierrez.kafka.app;
 
 import com.github.felipegutierrez.kafka.consumers.ConsumerDemo;
+import com.github.felipegutierrez.kafka.consumers.ConsumerDemoAssignSeek;
 import com.github.felipegutierrez.kafka.consumers.ConsumerDemoWithThreads;
 import com.github.felipegutierrez.kafka.producers.ProducerAsync;
 import com.github.felipegutierrez.kafka.producers.ProducerAsyncCallback;
@@ -51,6 +52,11 @@ public class App {
                 case 5:
                     System.out.println("App 5 selected: " + ConsumerDemoWithThreads.class.getSimpleName());
                     new ConsumerDemoWithThreads();
+                    app = 0;
+                    break;
+                case 6:
+                    System.out.println("App 6 selected: " + ConsumerDemoAssignSeek.class.getSimpleName());
+                    new ConsumerDemoAssignSeek();
                     app = 0;
                     break;
                 default:

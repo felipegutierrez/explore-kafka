@@ -137,8 +137,11 @@ public class TwitterProducer {
         // Kafka 2.5 >= 1.1 so we keep this value as 5. Use 1 otherwise.
         properties.setProperty(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, Integer.toString(5));
 
-        // improve the throughput: none, gzip, snappy, lz4, zstd
+        // high throughput producer at the expense of a bit of latency and CPU usage
+        // compression types: none, gzip, snappy, lz4, zstd
         properties.setProperty(ProducerConfig.COMPRESSION_TYPE_CONFIG, "gzip");
+        properties.setProperty(ProducerConfig.LINGER_MS_CONFIG, "20");
+        properties.setProperty(ProducerConfig.BATCH_SIZE_CONFIG, Integer.toString(32 * 1024)); // 32KB batch size
 
         KafkaProducer<String, String> producer = new KafkaProducer<String, String>(properties);
         return producer;

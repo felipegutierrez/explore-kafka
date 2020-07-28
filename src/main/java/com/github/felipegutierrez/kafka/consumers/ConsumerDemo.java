@@ -1,4 +1,4 @@
-package com.github.felipegutierrez.kafka;
+package com.github.felipegutierrez.kafka.consumers;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;

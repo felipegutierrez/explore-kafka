@@ -14,6 +14,9 @@ import java.util.Arrays;
 import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
 
+/**
+ * https://kafka.apache.org/documentation/#consumerconfigs
+ */
 public class ConsumerDemoWithThreads {
     private final Logger logger = LoggerFactory.getLogger(ConsumerDemoWithThreads.class);
     private final String bootstrapServers = "127.0.0.1:9092";

@@ -7,6 +7,9 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Properties;
 
+/**
+ * https://kafka.apache.org/documentation/#producerconfigs
+ */
 public class ProducerAsyncCallback {
     private final Logger logger = LoggerFactory.getLogger(ProducerAsyncCallback.class);
     private final String bootstrapServers = "127.0.0.1:9092";

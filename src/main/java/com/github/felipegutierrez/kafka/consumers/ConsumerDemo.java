@@ -12,6 +12,9 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.Properties;
 
+/**
+ * https://kafka.apache.org/documentation/#consumerconfigs
+ */
 public class ConsumerDemo {
     private final Logger logger = LoggerFactory.getLogger(ConsumerDemo.class);
     private final String bootstrapServers = "127.0.0.1:9092";

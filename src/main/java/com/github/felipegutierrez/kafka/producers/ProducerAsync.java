@@ -7,6 +7,9 @@ import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.Properties;
 
+/**
+ * https://kafka.apache.org/documentation/#producerconfigs
+ */
 public class ProducerAsync {
     private final String bootstrapServers = "127.0.0.1:9092";
 

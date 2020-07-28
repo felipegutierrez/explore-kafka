@@ -8,8 +8,12 @@ import com.github.felipegutierrez.kafka.producers.ProducerAsyncCallback;
 import com.github.felipegutierrez.kafka.producers.ProducerAsyncCallbackKeys;
 import com.github.felipegutierrez.kafka.producers.TwitterProducer;
 import com.github.felipegutierrez.kafka.util.Parameters;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class App {
+    private static final Logger logger = LoggerFactory.getLogger(App.class);
+
     public static void main(String[] args) {
         int app = 0;
         if (args != null && args.length > 0) {
@@ -75,6 +79,16 @@ public class App {
                     System.out.println("No application selected [" + app + "] ");
                     break;
             }
+        } else {
+            logger.info("Applications available");
+            logger.info("1 - " + ProducerAsync.class.getSimpleName());
+            logger.info("2 - " + ProducerAsyncCallback.class.getSimpleName());
+            logger.info("3 - " + ProducerAsyncCallbackKeys.class.getSimpleName());
+            logger.info("4 - " + ConsumerDemo.class.getSimpleName());
+            logger.info("5 - " + ConsumerDemoWithThreads.class.getSimpleName());
+            logger.info("6 - " + ConsumerDemoAssignSeek.class.getSimpleName());
+            logger.info("7 - " + TwitterProducer.class.getSimpleName());
+            logger.info("use: java -jar target/explore-kafka-1.0.jar -app 7 -elements \"corona|covid|covid-19\"");
         }
     }
 }

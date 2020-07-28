@@ -1,6 +1,6 @@
 # explore-kafka
 
-Using Kafka 2.5.0
+Using [Kafka 2.5.0](http://kafka.apache.org/)
 
 
 Start the zookeeper:
@@ -23,3 +23,9 @@ Start the consumer with or without group and key-value properties
 ./bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic first-topic --group my-first-app --property print.key=true --property key.separator=,
 ```
 
+The Application that reads tweets and publish into Kafka broker is the number 7. But other applications are available.
+
+```
+java -jar target/explore-kafka-1.0.jar -app 7 -elements "corona|covid|covid-19"
+
+```

@@ -129,9 +129,18 @@ public class TwitterProducer {
         properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
-        properties.setProperty(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, Boolean.TRUE.toString());
-        KafkaProducer<String, String> producer = new KafkaProducer<String, String>(properties);
 
+        // create a safer producer
+        properties.setProperty(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, Boolean.TRUE.toString());
+        properties.setProperty(ProducerConfig.ACKS_CONFIG, "all");
+        properties.setProperty(ProducerConfig.RETRIES_CONFIG, Integer.toString(Integer.MAX_VALUE));
+        // Kafka 2.5 >= 1.1 so we keep this value as 5. Use 1 otherwise.
+        properties.setProperty(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, Integer.toString(5));
+
+        // improve the throughput: none, gzip, snappy, lz4, zstd
+        properties.setProperty(ProducerConfig.COMPRESSION_TYPE_CONFIG, "gzip");
+
+        KafkaProducer<String, String> producer = new KafkaProducer<String, String>(properties);
         return producer;
     }
 

@@ -33,6 +33,16 @@
             <artifactId>hbc-core</artifactId> <!-- or hbc-twitter4j -->
             <version>2.2.0</version> <!-- or whatever the latest version is -->
         </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.11.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.11.1</version>
+        </dependency>
     </dependencies>
 
     <build>

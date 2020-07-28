@@ -1,5 +1,8 @@
 package com.github.felipegutierrez.kafka.producers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.twitter.hbc.ClientBuilder;
@@ -24,22 +27,24 @@ public class TwitterProducer {
     private final Logger logger = LoggerFactory.getLogger(TwitterProducer.class);
     private final String twitterAccessTokenFile = "twitter.access.token";
     private final String elements;
+    private final ObjectMapper jsonParser;
     private String consumerKey;
     private String consumerSecret;
     private String token;
     private String secret;
 
     public TwitterProducer() {
-        this("bolsonaro");
+        this("corona");
     }
 
     public TwitterProducer(String elements) {
         if (Strings.isNullOrEmpty(elements)) {
             // new RuntimeException("the -elements parameter cannot be empty");
-            this.elements = "bolsonaro";
+            this.elements = "corona";
         } else {
             this.elements = elements;
         }
+        this.jsonParser = new ObjectMapper();
         loadTokens();
     }
 
@@ -64,10 +69,25 @@ public class TwitterProducer {
                 hosebirdClient.stop();
             }
             if (msg != null) {
-                logger.info("message: " + msg);
+                // logger.info("message: " + msg);
+                extractMessage(msg);
             }
         }
         logger.info("End of application");
+    }
+
+    private void extractMessage(String msg) {
+        try {
+            JsonNode jsonNode = jsonParser.readValue(msg, JsonNode.class);
+            boolean hasText = jsonNode.has("text");
+            if (hasText) {
+                // message of tweet
+                String text = jsonNode.get("text").asText();
+                logger.info("message: " + text);
+            }
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
     }
 
     private void consume() {

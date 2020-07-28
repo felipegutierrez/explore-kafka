@@ -14,10 +14,14 @@ public class App {
         int app = 0;
         if (args != null && args.length > 0) {
             int size = args.length;
+            String elements = "";
             for (int i = 0; i < size; i++) {
                 if (Parameters.APP.equals(String.valueOf(args[i])) && i + 1 < size) {
                     i++;
                     app = Integer.parseInt(args[i]);
+                } else if (Parameters.ELEMENTS.equals(String.valueOf(args[i])) && i + 1 < size) {
+                    i++;
+                    elements = args[i];
                 }
             }
             System.out.println();
@@ -62,7 +66,7 @@ public class App {
                     break;
                 case 7:
                     System.out.println("App 7 selected: " + TwitterProducer.class.getSimpleName());
-                    TwitterProducer twitterProducer = new TwitterProducer();
+                    TwitterProducer twitterProducer = new TwitterProducer(elements);
                     twitterProducer.run();
                     app = 0;
                     break;

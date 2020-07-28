@@ -1,5 +1,6 @@
 package com.github.felipegutierrez.kafka.app;
 
+import com.github.felipegutierrez.kafka.ConsumerDemo;
 import com.github.felipegutierrez.kafka.producers.ProducerAsync;
 import com.github.felipegutierrez.kafka.producers.ProducerAsyncCallback;
 import com.github.felipegutierrez.kafka.producers.ProducerAsyncCallbackKeys;
@@ -39,6 +40,11 @@ public class App {
                 case 3:
                     System.out.println("App 3 selected: " + ProducerAsyncCallbackKeys.class.getSimpleName());
                     new ProducerAsyncCallbackKeys();
+                    app = 0;
+                    break;
+                case 4:
+                    System.out.println("App 4 selected: " + ConsumerDemo.class.getSimpleName());
+                    new ConsumerDemo();
                     app = 0;
                     break;
                 default:

@@ -1,6 +1,7 @@
 package com.github.felipegutierrez.kafka.app;
 
 import com.github.felipegutierrez.kafka.consumer.ElasticSearchConsumer;
+import com.github.felipegutierrez.kafka.consumer.ElasticSearchConsumerWithBulkRequest;
 import com.github.felipegutierrez.kafka.consumer.ElasticSearchConsumerWithIdempotentRequests;
 import com.github.felipegutierrez.kafka.consumer.ElasticSearchConsumerWithIdempotentRequestsAndSyncbatchCommit;
 import com.github.felipegutierrez.kafka.util.Parameters;
@@ -49,6 +50,11 @@ public class App {
                     new ElasticSearchConsumerWithIdempotentRequestsAndSyncbatchCommit();
                     app = 0;
                     break;
+                case 4:
+                    System.out.println("App 4 selected: " + ElasticSearchConsumerWithBulkRequest.class.getSimpleName());
+                    new ElasticSearchConsumerWithBulkRequest();
+                    app = 0;
+                    break;
                 default:
                     args = null;
                     System.out.println("No application selected [" + app + "] ");
@@ -59,7 +65,8 @@ public class App {
             logger.info("1 - " + ElasticSearchConsumer.class.getSimpleName());
             logger.info("2 - " + ElasticSearchConsumerWithIdempotentRequests.class.getSimpleName());
             logger.info("3 - " + ElasticSearchConsumerWithIdempotentRequestsAndSyncbatchCommit.class.getSimpleName());
-            logger.info("use: java -jar kafka-elasticsearch/target/kafka-elasticsearch-1.0.jar -app [1|2|3]");
+            logger.info("3 - " + ElasticSearchConsumerWithBulkRequest.class.getSimpleName());
+            logger.info("use: java -jar kafka-elasticsearch/target/kafka-elasticsearch-1.0.jar -app [1|2|3|4]");
         }
     }
 }

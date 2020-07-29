@@ -45,22 +45,24 @@ public class TwitterProducer {
     private final ObjectMapper jsonParser;
     private final String topic;
     private final boolean extractMsgFromJson;
+    private final boolean useKey;
     private String consumerKey;
     private String consumerSecret;
     private String token;
     private String secret;
 
     public TwitterProducer() {
-        this("corona", "twitter_tweets", false);
+        this("corona", "twitter_tweets", false, false);
     }
 
     public TwitterProducer(String elements) {
-        this(elements, "twitter_tweets", false);
+        this(elements, "twitter_tweets", false, false);
     }
 
-    public TwitterProducer(String elements, String topic, boolean extractMsgFromJson) {
+    public TwitterProducer(String elements, String topic, boolean extractMsgFromJson, boolean useKey) {
         this.topic = topic;
         this.extractMsgFromJson = extractMsgFromJson;
+        this.useKey = useKey;
         if (Strings.isNullOrEmpty(elements)) {
             // new RuntimeException("the -elements parameter cannot be empty");
             this.terms = Lists.newArrayList("corona");
@@ -107,9 +109,11 @@ public class TwitterProducer {
                 // logger.info("message: " + msg);
                 // extract key
                 String key = null;
-                for (String k : this.terms) {
-                    if (msg.toLowerCase().contains(k)) {
-                        key = k;
+                if (this.useKey) {
+                    for (String k : this.terms) {
+                        if (msg.toLowerCase().contains(k)) {
+                            key = k;
+                        }
                     }
                 }
                 String text;
@@ -119,6 +123,7 @@ public class TwitterProducer {
                 } else {
                     text = msg;
                 }
+
 
                 final ProducerRecord<String, String> record = new ProducerRecord<String, String>(topic, key, text);
                 producer.send(record, new Callback() {

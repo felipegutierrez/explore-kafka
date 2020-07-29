@@ -166,6 +166,18 @@ public class ElasticSearchConsumerWithBulkRequest {
         // guarantee that we receive only 100 records because we are asynch using BulkRequest
         properties.setProperty(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, "100");
 
+        // mechanism to detect a consumer application being down
+        // heartbeats are sent periodically to the broker.
+        // If no heartbeat is sent during that period the consumer is considered dead.
+        // set even lower to faster consumer balances
+        // properties.setProperty(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "3000"); // default: 10,000 milliseconds
+        // how ofter to send heartbeats. Usually it is set to 1/3 of the SESSION_TIMEOUT_MS_CONFIG
+        // properties.setProperty(ConsumerConfig.HEARTBEAT_INTERVAL_MS_CONFIG, "1000"); // default: 3,000 milliseconds
+
+        // when using a bigData process engine decrease this parameter
+        // maximum amount of time between two poll() calls before declaring the consumer dead.
+        // properties.setProperty(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG, "1000"); // default: 5,000 milliseconds
+
         // create consumer
         KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(properties);
 
@@ -187,7 +199,7 @@ public class ElasticSearchConsumerWithBulkRequest {
         logger.info("Start the consumer: java -jar kafka-twitter/target/kafka-twitter-1.0.jar -app 1 -elements \"felipe\"");
         logger.info("start the consumer from console: ./bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic twitter_tweets");
         logger.info("describe the group-id to check that the offset is idempotent: ./bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group kafka-demo-elasticsearch --describe");
-        logger.info("");
+        logger.info("reset the offsets: ./bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group kafka-demo-elasticsearch --reset-offsets --execute --to-earliest --topic twitter_tweets");
         logger.info("");
         logger.info("");
     }

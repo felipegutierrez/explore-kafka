@@ -29,8 +29,8 @@ public class App {
                     System.out.println("bis später");
                     break;
                 case 1:
-                    // System.out.println("App 1 selected: " + ElasticSearchConsumer.class.getSimpleName());
-                    // new ElasticSearchConsumer();
+                    System.out.println("App 1 selected: " + KafkaStreamFilterTweets.class.getSimpleName());
+                    new KafkaStreamFilterTweets();
                     app = 0;
                     break;
                 default:
@@ -40,7 +40,7 @@ public class App {
             }
         } else {
             logger.info("Applications available");
-            // logger.info("1 - " + ElasticSearchConsumer.class.getSimpleName());
+            logger.info("1 - " + KafkaStreamFilterTweets.class.getSimpleName());
             logger.info("use: java -jar kafka-elasticsearch/target/kafka-streams-twitter-1.0.jar -app [1]");
         }
     }

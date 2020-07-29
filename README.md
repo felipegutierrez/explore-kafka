@@ -25,7 +25,7 @@ Start the consumer with or without group and key-value properties
 ./bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic first-topic --group my-first-app --property print.key=true --property key.separator=,
 ```
 
-The Application that reads tweets and publish into Kafka broker is the number 7. But other applications are available.
+The Application that reads tweets and publish into Kafka broker is the `kafka-twitter-*.jar`, but other applications are available.
 
 ```
 mvn clean package -DskipTests

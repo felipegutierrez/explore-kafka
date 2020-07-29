@@ -32,5 +32,5 @@ mvn clean package -DskipTests
 java -jar kafka-basics/target/kafka-basics-1.0.jar -app [1|2|3|4|5|6]
 java -jar kafka-twitter/target/kafka-twitter-1.0.jar -app 1 -elements "corona|covid|covid-19"
 java -jar kafka-elasticsearch/target/kafka-elasticsearch-1.0.jar -app [1|2|3|4]
-java -jar kafka-elasticsearch/target/kafka-streams-twitter-1.0.jar -app [1]
+java -jar kafka-streams-twitter/target/kafka-streams-twitter-1.0.jar -app [1]
 ```

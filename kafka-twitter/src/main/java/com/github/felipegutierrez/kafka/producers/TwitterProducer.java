@@ -43,16 +43,24 @@ public class TwitterProducer {
     private final String bootstrapServers = "127.0.0.1:9092";
     private final List<String> terms;
     private final ObjectMapper jsonParser;
+    private final String topic;
+    private final boolean extractMsgFromJson;
     private String consumerKey;
     private String consumerSecret;
     private String token;
     private String secret;
 
     public TwitterProducer() {
-        this("corona");
+        this("corona", "twitter_tweets", false);
     }
 
     public TwitterProducer(String elements) {
+        this(elements, "twitter_tweets", false);
+    }
+
+    public TwitterProducer(String elements, String topic, boolean extractMsgFromJson) {
+        this.topic = topic;
+        this.extractMsgFromJson = extractMsgFromJson;
         if (Strings.isNullOrEmpty(elements)) {
             // new RuntimeException("the -elements parameter cannot be empty");
             this.terms = Lists.newArrayList("corona");
@@ -104,9 +112,15 @@ public class TwitterProducer {
                         key = k;
                     }
                 }
-                // extract message
-                String text = extractMessage(msg);
-                final ProducerRecord<String, String> record = new ProducerRecord<String, String>("twitter-topic", key, text);
+                String text;
+                if (extractMsgFromJson) {
+                    // extract message
+                    text = extractMessage(msg);
+                } else {
+                    text = msg;
+                }
+
+                final ProducerRecord<String, String> record = new ProducerRecord<String, String>(topic, key, text);
                 producer.send(record, new Callback() {
                     @Override
                     public void onCompletion(RecordMetadata recordMetadata, Exception e) {

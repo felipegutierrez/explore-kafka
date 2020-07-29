@@ -6,6 +6,11 @@ import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.serialization.StringDeserializer;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.RequestOptions;
@@ -17,30 +22,58 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.time.Duration;
+import java.util.Arrays;
+import java.util.Properties;
 
 public class ElasticSearchConsumer {
     private static final Logger logger = LoggerFactory.getLogger(ElasticSearchConsumer.class);
     private final String elasticSearchCredentialFile = "elasticsearch.token";
+    private final String bootstrapServers = "127.0.0.1:9092";
+    private final String groupId = "kafka-demo-elasticsearch";
+    private final String topic = "twitter_tweets";
+    private final int maxInsert = 5;
+    private boolean insertIntoElasticsearch = false;
     private String hostname;
     private String username;
     private String password;
 
     public ElasticSearchConsumer() {
         try {
+            disclaimer();
             leadCredentials();
             RestHighLevelClient client = createClient();
-            String jsonString = "{\"foo\": \"bar\"}";
-            // make sure that the index id exist at https://app.bonsai.io/clusters/kafka-5082250343/console
-            IndexRequest indexResquest = new IndexRequest("twitter", "tweets").source(jsonString, XContentType.JSON);
 
-            IndexResponse indexResponse = client.index(indexResquest, RequestOptions.DEFAULT);
-            String id = indexResponse.getId();
-            logger.info("Go to the Elasticsearch https://app.bonsai.io/clusters/kafka-5082250343/console and search for: ");
-            logger.info("GET: /twitter/tweets/" + id);
+            KafkaConsumer<String, String> consumer = createConsumer();
+            int count = 0;
+            // poll for new data
+            while (insertIntoElasticsearch) {
+                ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
+
+                for (ConsumerRecord<String, String> record : records) {
+                    // logger.info("Key:" + record.key() + " Value:" + record.value() + " Partition:" + record.partition() + " Offset:" + record.offset());
+                    // insert data into elasticsearch
+                    String jsonString = record.value(); // "{\"foo\": \"bar\"}";
+
+                    // make sure that the index id exist at https://app.bonsai.io/clusters/kafka-5082250343/console
+                    IndexRequest indexResquest = new IndexRequest("twitter", "tweets").source(jsonString, XContentType.JSON);
+
+                    IndexResponse indexResponse = client.index(indexResquest, RequestOptions.DEFAULT);
+                    String id = indexResponse.getId();
+                    logger.info("Go to the Elasticsearch https://app.bonsai.io/clusters/kafka-5082250343/console and search for: ");
+                    logger.info("GET: /twitter/tweets/" + id);
+                    count++;
+                    if (count >= maxInsert) {
+                        insertIntoElasticsearch = false;
+                        break;
+                    }
+                    Thread.sleep(1000); // introduce a small delay
+                }
+            }
 
             // close the elasticsearch client
             client.close();
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
@@ -68,6 +101,7 @@ public class ElasticSearchConsumer {
                     throw new IOException();
                 }
             }
+            insertIntoElasticsearch = true;
             logger.info("Tokens read. username: " + username + ", password: *********, hostname: " + hostname);
         } catch (NullPointerException | FileNotFoundException e) {
             logger.error("File [" + elasticSearchCredentialFile + "] not found.");
@@ -90,5 +124,35 @@ public class ElasticSearchConsumer {
                 });
         RestHighLevelClient client = new RestHighLevelClient(builder);
         return client;
+    }
+
+    private KafkaConsumer<String, String> createConsumer() {
+        // create properties
+        Properties properties = new Properties();
+        properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+        properties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+        properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+        properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, groupId);
+        properties.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+
+        // create consumer
+        KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(properties);
+
+        // subscribe consumer to our topic(s)
+        consumer.subscribe(Arrays.asList(topic));
+
+        return consumer;
+    }
+
+    private void disclaimer() {
+        logger.info("Start zookeeper: ./bin/zookeeper-server-start.sh config/zookeeper.properties");
+        logger.info("Start the broker: ./bin/kafka-server-start.sh config/server.properties");
+        logger.info("remove the topic: ./bin/kafka-topics.sh --delete --topic twitter_tweets --zookeeper localhost:2181");
+        logger.info("create the topic: ./bin/kafka-topics.sh --create --topic twitter_tweets --zookeeper localhost:2181 --partitions 6 --replication-factor 1");
+        logger.info("Start the consumer: java -jar kafka-twitter/target/kafka-twitter-1.0.jar -app 1 -elements \"felipe\"");
+        logger.info("");
+        logger.info("");
+        logger.info("");
+        logger.info("");
     }
 }

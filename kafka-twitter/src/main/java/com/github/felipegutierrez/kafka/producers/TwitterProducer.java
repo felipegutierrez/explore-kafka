@@ -46,23 +46,26 @@ public class TwitterProducer {
     private final String topic;
     private final boolean extractMsgFromJson;
     private final boolean useKey;
+    private final boolean compress;
     private String consumerKey;
     private String consumerSecret;
     private String token;
     private String secret;
 
     public TwitterProducer() {
-        this("corona", "twitter_tweets", false, false);
+        this("corona", "twitter_tweets", false, false, false);
     }
 
     public TwitterProducer(String elements) {
-        this(elements, "twitter_tweets", false, false);
+        this(elements, "twitter_tweets", false, false, false);
     }
 
-    public TwitterProducer(String elements, String topic, boolean extractMsgFromJson, boolean useKey) {
+    public TwitterProducer(String elements, String topic, boolean extractMsgFromJson, boolean useKey, boolean compress) {
         this.topic = topic;
         this.extractMsgFromJson = extractMsgFromJson;
         this.useKey = useKey;
+        this.compress = compress;
+        this.disclaimer();
         if (Strings.isNullOrEmpty(elements)) {
             // new RuntimeException("the -elements parameter cannot be empty");
             this.terms = Lists.newArrayList("corona");
@@ -83,7 +86,7 @@ public class TwitterProducer {
         hosebirdClient.connect();
 
         // create a kafka producer
-        KafkaProducer<String, String> producer = createKafkaProducer();
+        KafkaProducer<String, String> producer = createKafkaProducer(this.compress);
 
         // shutdown hook
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
@@ -142,7 +145,7 @@ public class TwitterProducer {
         logger.info("End of application");
     }
 
-    private KafkaProducer<String, String> createKafkaProducer() {
+    private KafkaProducer<String, String> createKafkaProducer(boolean compress) {
         // create properties
         Properties properties = new Properties();
         properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
@@ -156,11 +159,13 @@ public class TwitterProducer {
         // Kafka 2.5 >= 1.1 so we keep this value as 5. Use 1 otherwise.
         properties.setProperty(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, Integer.toString(5));
 
-        // high throughput producer at the expense of a bit of latency and CPU usage
-        // compression types: none, gzip, snappy, lz4, zstd
-        properties.setProperty(ProducerConfig.COMPRESSION_TYPE_CONFIG, "gzip");
-        properties.setProperty(ProducerConfig.LINGER_MS_CONFIG, "20");
-        properties.setProperty(ProducerConfig.BATCH_SIZE_CONFIG, Integer.toString(32 * 1024)); // 32KB batch size
+        if (compress) {
+            // high throughput producer at the expense of a bit of latency and CPU usage
+            // compression types: none, gzip, snappy, lz4, zstd
+            properties.setProperty(ProducerConfig.COMPRESSION_TYPE_CONFIG, "gzip");
+            properties.setProperty(ProducerConfig.LINGER_MS_CONFIG, "20");
+            properties.setProperty(ProducerConfig.BATCH_SIZE_CONFIG, Integer.toString(32 * 1024)); // 32KB batch size
+        }
 
         KafkaProducer<String, String> producer = new KafkaProducer<String, String>(properties);
         return producer;
@@ -231,5 +236,17 @@ public class TwitterProducer {
                 .endpoint(hosebirdEndpoint)
                 .processor(new StringDelimitedProcessor(msgQueue));
         return builder.build();
+    }
+
+    private void disclaimer() {
+        logger.info("Start zookeeper: ./bin/zookeeper-server-start.sh config/zookeeper.properties");
+        logger.info("Start the broker: ./bin/kafka-server-start.sh config/server.properties");
+        logger.info("remove the topic: ./bin/kafka-topics.sh --delete --topic twitter_tweets --zookeeper localhost:2181");
+        logger.info("create the topic: ./bin/kafka-topics.sh --create --topic twitter_tweets --zookeeper localhost:2181 --partitions 6 --replication-factor 1");
+        logger.info("");
+        logger.info("");
+        logger.info("");
+        logger.info("");
+        logger.info("");
     }
 }

@@ -5,6 +5,8 @@
     <file url="file://$PROJECT_DIR$/kafka-basics/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafka-elasticsearch/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafka-elasticsearch/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/kafka-streams-twitter/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/kafka-streams-twitter/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafka-twitter/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafka-twitter/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />

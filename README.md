@@ -11,9 +11,21 @@ Start the Kafka brokers
 ```
 ./bin/kafka-server-start.sh config/server.properties
 ```
-Create the topics
+Topics
 ```
-./bin/kafka-topics.sh --create --topic twitter_tweets --zookeeper localhost:2181 --partitions 6 --replication-factor 1
+./bin/kafka-topics.sh  --zookeeper localhost:2181 --list
+./bin/kafka-topics.sh  --zookeeper localhost:2181 --create   --topic twitter_tweets --partitions 6 --replication-factor 1
+./bin/kafka-topics.sh  --zookeeper localhost:2181 --describe --topic twitter_tweets
+# Add, describe, delete configuration for a topic
+./bin/kafka-configs.sh --zookeeper localhost:2181 --entity-type topics --entity-name twitter_tweets --describe
+# min.insync.replicas=2 means that 2 nodes besides the leader has to synchronize the messages.
+# However, because our --replication-factor=1 (because I tested on my local machine) the min.insync.replicas=2 has no efect
+./bin/kafka-configs.sh --zookeeper localhost:2181 --entity-type topics --entity-name twitter_tweets --add-config min.insync.replicas=2  --alter
+./bin/kafka-configs.sh --zookeeper localhost:2181 --entity-type topics --entity-name twitter_tweets --delete-config min.insync.replicas --alter
+```
+Log cleanup policies
+```
+./bin/kafka-topics.sh --zookeeper localhost:2181 --describe --topic __consumer_offsets
 ```
 Start the producer from the command line or the Java producer Kafka application
 ```

@@ -5,7 +5,7 @@
 
 # 1) Source connectors
 # Start our kafka cluster
-docker-compose up kafka-cluster elasticsearch postgres
+sudo docker-compose up kafka-cluster elasticsearch postgres
 # Wait 2 minutes for the kafka cluster to be started
 
 ###############

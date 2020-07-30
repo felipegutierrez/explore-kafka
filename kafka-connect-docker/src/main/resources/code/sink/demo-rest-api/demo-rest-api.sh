@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # let's start a command line to all have linux commands
-docker run --rm -it --net=host landoop/fast-data-dev:cp3.3.0 bash
+sudo docker run --rm -it --net=host landoop/fast-data-dev:cp3.3.0 bash
 # Install jq to pretty print json
 apk update && apk add jq
 

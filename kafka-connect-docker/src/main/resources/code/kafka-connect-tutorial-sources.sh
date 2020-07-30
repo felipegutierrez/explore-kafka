@@ -6,7 +6,7 @@
 # 1) Source connectors
 # Start our kafka cluster
 sudo docker-compose up kafka-cluster
-# Wait 2 minutes for the kafka cluster to be started
+# Wait 2 minutes for the kafka cluster to be started and access: http://127.0.0.1:3030/
 
 ###############
 # A) FileStreamSourceConnector in standalone mode
@@ -16,11 +16,12 @@ sudo docker-compose up kafka-cluster
 
 # We start a hosted tools, mapped on our code
 # Linux / Mac
-docker run --rm -it -v "$(pwd)":/tutorial --net=host landoop/fast-data-dev:cp3.3.0 bash
+cd explore-kafka/kafka-connect-docker/src/main/resources/code
+sudo docker run --rm -it -v "$(pwd)":/tutorial --net=host landoop/fast-data-dev:cp3.3.0 bash
 # Windows Command Line:
-docker run --rm -it -v %cd%:/tutorial --net=host landoop/fast-data-dev:cp3.3.0 bash
+#docker run --rm -it -v %cd%:/tutorial --net=host landoop/fast-data-dev:cp3.3.0 bash
 # Windows Powershell:
-docker run --rm -it -v ${PWD}:/tutorial --net=host landoop/fast-data-dev:cp3.3.0 bash
+#docker run --rm -it -v ${PWD}:/tutorial --net=host landoop/fast-data-dev:cp3.3.0 bash
 
 # we launch the kafka connector in standalone mode:
 cd /tutorial/source/demo-1
@@ -35,7 +36,7 @@ connect-standalone worker.properties file-stream-demo-standalone.properties
 ###############
 # B) FileStreamSourceConnector in distributed mode:
 # create the topic we're going to write to
-docker run --rm -it --net=host landoop/fast-data-dev:cp3.3.0 bash
+sudo docker run --rm -it --net=host landoop/fast-data-dev:cp3.3.0 bash
 kafka-topics --create --topic demo-2-distributed --partitions 3 --replication-factor 1 --zookeeper 127.0.0.1:2181
 # you can now close the new shell
 
@@ -44,15 +45,15 @@ kafka-topics --create --topic demo-2-distributed --partitions 3 --replication-fa
 # Paste the configuration at source/demo-2/file-stream-demo-distributed.properties
 
 # Now that the configuration is launched, we need to create the file demo-file.txt
-docker ps
-docker exec -it <containerId> bash
+sudo docker ps
+sudo docker exec -it <containerId> bash
 touch demo-file.txt
 echo "hi" >> demo-file.txt
 echo "hello" >> demo-file.txt
 echo "from the other side" >> demo-file.txt
 
 # Read the topic data
-docker run --rm -it --net=host landoop/fast-data-dev:cp3.3.0 bash
+sudo docker run --rm -it --net=host landoop/fast-data-dev:cp3.3.0 bash
 kafka-console-consumer --topic demo-2-distributed --from-beginning --bootstrap-server 127.0.0.1:9092
 # observe we now have json as an output, even though the input was text!
 ###############

@@ -1,6 +1,9 @@
 # explore-kafka
 
-Using [Kafka 2.5.0](http://kafka.apache.org/)
+Using [Kafka 2.5.0](http://kafka.apache.org/) to implement and practice the exercises from the Apache Kafka Series:
+
+ - [Learn Apache Kafka for Beginners v2](https://www.udemy.com/course/kafka-connect/)
+ - [Kafka Connect Hands-on Learning](https://www.udemy.com/course/kafka-connect/)
 
 
 Start the zookeeper:

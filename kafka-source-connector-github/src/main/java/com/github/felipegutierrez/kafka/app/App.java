@@ -41,7 +41,7 @@ public class App {
         } else {
             logger.info("Applications available");
 //            logger.info("1 - " + ProducerAsync.class.getSimpleName());
-            logger.info("use: java -jar kafka-connector/target/kafka-connector-1.0.jar -app [1]");
+            logger.info("use: java -jar kafka-source-connector-github/target/kafka-source-connector-github-1.0.jar -app [1]");
         }
     }
 }

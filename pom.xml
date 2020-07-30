@@ -15,7 +15,7 @@
         <module>kafka-elasticsearch</module>
         <module>kafka-streams-twitter</module>
         <module>kafka-connect-docker</module>
-        <module>kafka-connector</module>
+        <module>kafka-source-connector-github</module>
     </modules>
 
     <properties>

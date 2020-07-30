@@ -13,6 +13,7 @@
         <module>kafka-twitter</module>
         <module>kafka-elasticsearch</module>
         <module>kafka-streams-twitter</module>
+        <module>kafka-connect-docker</module>
     </modules>
 
     <properties>

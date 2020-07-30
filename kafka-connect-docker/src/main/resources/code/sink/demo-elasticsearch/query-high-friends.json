@@ -1,0 +1,9 @@
+{
+  "query":{
+    "range" : {
+      "user.friends_count" : {
+          "gt" : 500
+      }
+		}
+  }
+}

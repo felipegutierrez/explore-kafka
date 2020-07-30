@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="kafka-basics" />
         <module name="kafka-elasticsearch" />
+        <module name="kafka-connect-docker" />
         <module name="kafka-streams-twitter" />
         <module name="kafka-twitter" />
       </profile>

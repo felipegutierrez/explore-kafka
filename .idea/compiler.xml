@@ -7,11 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="kafka-connect-docker" />
-        <module name="kafka-twitter" />
-        <module name="kafka-source-connector-github" />
         <module name="kafka-basics" />
         <module name="kafka-elasticsearch" />
         <module name="kafka-streams-twitter" />
+        <module name="kafka-twitter" />
+        <module name="kafka-source-connector-github" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

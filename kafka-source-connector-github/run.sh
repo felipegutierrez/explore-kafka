@@ -3,7 +3,7 @@
 # make sure that you execute "mvn clean package" first to create the jar file
 
 # export the path
-export CLASSPATH="$(find target/ -type f -name '*.jar'| grep '\-package' | tr '\n' ':')"
+export CLASSPATH="$(find target/ -type f -name '*with-dependencies.jar'| grep '\-package' | tr '\n' ':')"
 if hash docker 2>/dev/null; then
     # for docker lovers
     sudo docker build . -t explore-kafka/kafka-source-connector-github:1.0

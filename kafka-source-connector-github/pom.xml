@@ -20,7 +20,7 @@
             <groupId>org.apache.kafka</groupId>
             <artifactId>connect-api</artifactId>
             <version>${kafka.version}</version>
-<!--            <version>0.10.2.0-cp1</version>-->
+            <!--            <version>0.10.2.0-cp1</version>-->
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -58,11 +58,9 @@
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                    <finalName>kafka-source-connector-github-1.0-with-dependencies</finalName>
-                    <appendAssemblyId>false</appendAssemblyId>
+                    <descriptors>
+                        <descriptor>src/assembly/bin.xml</descriptor>
+                    </descriptors>
                 </configuration>
                 <executions>
                     <execution>

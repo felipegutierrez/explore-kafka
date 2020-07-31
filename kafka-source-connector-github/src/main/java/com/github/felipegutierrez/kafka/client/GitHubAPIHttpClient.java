@@ -33,8 +33,7 @@ public class GitHubAPIHttpClient {
         this.config = config;
     }
 
-    protected JSONArray getNextIssues(Integer page, Instant since) throws InterruptedException {
-
+    public JSONArray getNextIssues(Integer page, Instant since) throws InterruptedException {
         HttpResponse<JsonNode> jsonResponse;
         try {
             jsonResponse = getNextIssuesAPI(page, since);
@@ -77,7 +76,7 @@ public class GitHubAPIHttpClient {
         }
     }
 
-    protected HttpResponse<JsonNode> getNextIssuesAPI(Integer page, Instant since) throws UnirestException {
+    public HttpResponse<JsonNode> getNextIssuesAPI(Integer page, Instant since) throws UnirestException {
         GetRequest unirest = Unirest.get(constructUrl(page, since));
         if (!config.getAuthUsername().isEmpty() && !config.getAuthPassword().isEmpty()) {
             unirest = unirest.basicAuth(config.getAuthUsername(), config.getAuthPassword());
@@ -86,7 +85,7 @@ public class GitHubAPIHttpClient {
         return unirest.asJson();
     }
 
-    protected String constructUrl(Integer page, Instant since) {
+    public String constructUrl(Integer page, Instant since) {
         return String.format(
                 "https://api.github.com/repos/%s/%s/issues?page=%s&per_page=%s&since=%s&state=all&direction=asc&sort=updated",
                 config.getOwnerConfig(),

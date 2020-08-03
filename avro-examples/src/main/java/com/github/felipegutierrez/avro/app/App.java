@@ -1,6 +1,7 @@
 package com.github.felipegutierrez.avro.app;
 
 import com.github.felipegutierrez.avro.generic.GenericRecordExamples;
+import com.github.felipegutierrez.avro.reflection.ReflectionExamples;
 import com.github.felipegutierrez.avro.specific.SpecificRecordExamples;
 import com.github.felipegutierrez.avro.util.Parameters;
 import org.slf4j.Logger;
@@ -40,6 +41,11 @@ public class App {
                     new SpecificRecordExamples();
                     app = 0;
                     break;
+                case 3:
+                    System.out.println("App 3 selected: " + ReflectionExamples.class.getSimpleName());
+                    new ReflectionExamples();
+                    app = 0;
+                    break;
                 default:
                     args = null;
                     System.out.println("No application selected [" + app + "] ");
@@ -48,8 +54,9 @@ public class App {
         } else {
             logger.info("Applications available");
             logger.info("1 - " + GenericRecordExamples.class.getSimpleName());
-            logger.info("1 - " + SpecificRecordExamples.class.getSimpleName());
-            logger.info("use: java -jar avro-examples/target/avro-examples-1.0.jar -app [1|2|3|4|5|6]");
+            logger.info("2 - " + SpecificRecordExamples.class.getSimpleName());
+            logger.info("3 - " + ReflectionExamples.class.getSimpleName());
+            logger.info("use: java -jar avro-examples/target/avro-examples-1.0.jar -app [1|2|3]");
         }
     }
 }

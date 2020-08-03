@@ -201,4 +201,5 @@ kafka-twitter/src/main/resources/*.credential*
 kafka-twitter/src/main/resources/*.token*
 kafka-elasticsearch/src/main/resources/*.token*
 kafka-elasticsearch/src/main/resources/*.credential*
+output**
 

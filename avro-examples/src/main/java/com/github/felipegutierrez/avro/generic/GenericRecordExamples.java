@@ -59,14 +59,14 @@ public class GenericRecordExamples {
         // step 2: write that generic record to a file
         final DatumWriter<GenericRecord> datumWriter = new GenericDatumWriter<>(schema);
         try (DataFileWriter<GenericRecord> dataFileWriter = new DataFileWriter<>(datumWriter)) {
-            File directory = new File("output/");
+            File directory = new File("/tmp/avro-output/");
             if (!directory.exists()) {
                 directory.mkdirs();
             }
-            dataFileWriter.create(customer.getSchema(), new File("output/customer-generic.avro"));
+            dataFileWriter.create(customer.getSchema(), new File("/tmp/avro-output/customer-generic.avro"));
             dataFileWriter.append(customer);
             dataFileWriter.append(customerWithDefault);
-            logger.info("Written output/customer-generic.avro");
+            logger.info("Written /tmp/avro-output/customer-generic.avro");
             dataFileWriter.close();
         } catch (AvroRuntimeException are) {
             logger.error("Avro Runtime error: ", are.getMessage());
@@ -77,7 +77,7 @@ public class GenericRecordExamples {
         }
 
         // step 3: read a generic record from a file
-        final File file = new File("output/customer-generic.avro");
+        final File file = new File("/tmp/avro-output/customer-generic.avro");
         final DatumReader<GenericRecord> datumReader = new GenericDatumReader<>();
         GenericRecord customerRead;
         try (DataFileReader<GenericRecord> dataFileReader = new DataFileReader<>(file, datumReader)) {

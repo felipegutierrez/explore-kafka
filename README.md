@@ -50,5 +50,7 @@ java -jar kafka-twitter/target/kafka-twitter-1.0.jar -app 1 -elements "corona|co
 java -jar kafka-elasticsearch/target/kafka-elasticsearch-1.0.jar -app [1|2|3|4]
 java -jar kafka-streams-twitter/target/kafka-streams-twitter-1.0.jar -app [1]
 java -jar kafka-source-connector-github/target/kafka-source-connector-github-1.0.jar -app [1]
-java -jar avro-examples/target/avro-examples-1.0.jar -app [1|2|3]
+java -jar avro-examples/target/avro-examples-1.0.jar -app [1|2|3|4]
 ```
+
+

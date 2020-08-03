@@ -86,6 +86,7 @@ public class GenericRecordExamples {
                 customerRead = dataFileReader.next();
                 logger.info(customerRead.toString());
 
+                // step 4: interpret as a generic record
                 try {
                     // get the data from the generic record
                     logger.info("First name: " + customerRead.get("first_name"));
@@ -101,8 +102,5 @@ public class GenericRecordExamples {
             logger.error("Couldn't read file: ", e.getMessage());
             e.printStackTrace();
         }
-
-        // step 4: interpret as a generic record
-
     }
 }

@@ -51,6 +51,7 @@ java -jar kafka-elasticsearch/target/kafka-elasticsearch-1.0.jar -app [1|2|3|4]
 java -jar kafka-streams-twitter/target/kafka-streams-twitter-1.0.jar -app [1]
 java -jar kafka-source-connector-github/target/kafka-source-connector-github-1.0.jar -app [1]
 java -jar avro-examples/target/avro-examples-1.0.jar -app [1|2|3|4]
+java -jar kafka-schema-registry-avro/target/kafka-schema-registry-avro-1.0.jar -app [1|2|3|4]
 ```
 
 

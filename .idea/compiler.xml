@@ -10,6 +10,7 @@
         <module name="kafka-schema-registry-docker" />
         <module name="kafka-twitter" />
         <module name="kafka-source-connector-github" />
+        <module name="kafka-schema-registry-avro" />
         <module name="kafka-basics" />
         <module name="kafka-elasticsearch" />
         <module name="kafka-streams-twitter" />

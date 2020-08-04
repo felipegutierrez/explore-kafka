@@ -3,12 +3,15 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/avro-examples/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/avro-examples/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/avro-examples/target/generated-sources/avro" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafka-basics/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafka-basics/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafka-connect-docker/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafka-connect-docker/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafka-elasticsearch/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafka-elasticsearch/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/kafka-schema-registry-avro/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/kafka-schema-registry-avro/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafka-schema-registry-docker/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafka-schema-registry-docker/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafka-source-connector-github/src/main/java" charset="UTF-8" />

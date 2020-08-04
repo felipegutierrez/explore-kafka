@@ -17,6 +17,7 @@
         <module>kafka-connect-docker</module>
         <module>kafka-source-connector-github</module>
         <module>avro-examples</module>
+        <module>kafka-schema-registry-docker</module>
     </modules>
 
     <properties>

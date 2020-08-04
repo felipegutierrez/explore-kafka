@@ -9,6 +9,7 @@
         <module name="kafka-schema-registry-avro-V1" />
         <module name="kafka-connect-docker" />
         <module name="kafka-schema-registry-docker" />
+        <module name="kafka-rest-proxy" />
         <module name="kafka-twitter" />
         <module name="kafka-schema-registry-avro-V2" />
         <module name="kafka-source-connector-github" />

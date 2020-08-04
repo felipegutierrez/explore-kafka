@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>kafka-schema-registry-avro</artifactId>
+    <artifactId>kafka-schema-registry-avro-V1</artifactId>
 
     <!--necessary to resolve confluent dependencies-->
     <repositories>

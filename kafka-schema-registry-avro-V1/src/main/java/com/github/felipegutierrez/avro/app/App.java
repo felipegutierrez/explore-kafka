@@ -13,11 +13,14 @@ public class App {
         int app = 0;
         if (args != null && args.length > 0) {
             int size = args.length;
-            String elements = "";
+            String offset = "earliest";
             for (int i = 0; i < size; i++) {
                 if (Parameters.APP.equals(String.valueOf(args[i])) && i + 1 < size) {
                     i++;
                     app = Integer.parseInt(args[i]);
+                } else if (Parameters.OFFSET.equals(String.valueOf(args[i])) && i + 1 < size) {
+                    i++;
+                    offset = args[i];
                 }
             }
             System.out.println();
@@ -37,7 +40,7 @@ public class App {
                     break;
                 case 2:
                     System.out.println("App 2 selected: " + KafkaAvroConsumerV1.class.getSimpleName());
-                    new KafkaAvroConsumerV1();
+                    new KafkaAvroConsumerV1(offset);
                     app = 0;
                     break;
                 default:

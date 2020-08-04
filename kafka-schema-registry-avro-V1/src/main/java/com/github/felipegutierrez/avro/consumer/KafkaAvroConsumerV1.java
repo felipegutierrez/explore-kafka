@@ -6,6 +6,7 @@ import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.errors.SerializationException;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,9 +19,13 @@ public class KafkaAvroConsumerV1 {
     private final String bootstrapServers = "127.0.0.1:9092";
     private final String groupId = "customer-consumer-group-v1";
     private final String schemaRegistryUrl = "http://127.0.0.1:8081";
-    private final String topic = "customer-avro";
+    private final String topic = "customer-avro-topic";
 
     public KafkaAvroConsumerV1() {
+        this("earliest");
+    }
+
+    public KafkaAvroConsumerV1(String offset) {
         disclaimer();
 
         Properties properties = new Properties();
@@ -28,7 +33,7 @@ public class KafkaAvroConsumerV1 {
         properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         properties.setProperty(ConsumerConfig.GROUP_ID_CONFIG, groupId);
         properties.setProperty(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, Boolean.FALSE.toString());
-        properties.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+        properties.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, offset);
         // avro part (deserializer)
         properties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         properties.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, KafkaAvroDeserializer.class.getName());
@@ -41,15 +46,19 @@ public class KafkaAvroConsumerV1 {
         logger.info("Waiting for data...");
 
         while (true) {
-            logger.info("Polling");
-            ConsumerRecords<String, Customer> records = kafkaConsumer.poll(1000);
+            try {
+                logger.info("Polling");
+                ConsumerRecords<String, Customer> records = kafkaConsumer.poll(1000);
 
-            for (ConsumerRecord<String, Customer> record : records) {
-                Customer customer = record.value();
-                logger.info(customer.toString());
+                for (ConsumerRecord<String, Customer> record : records) {
+                    Customer customer = record.value();
+                    logger.info(customer.toString());
+                }
+                logger.info("commit the offsets so when we restart the consumer we resume the topic from where we stopped.");
+                kafkaConsumer.commitSync();
+            } catch (SerializationException se) {
+                se.printStackTrace();
             }
-            logger.info("commit the offsets so when we restart the consumer we resume the topic from where we stopped.");
-            kafkaConsumer.commitSync();
         }
     }
 

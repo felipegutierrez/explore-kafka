@@ -13,7 +13,7 @@ public class KafkaAvroProducerV1 {
     private static final Logger logger = LoggerFactory.getLogger(KafkaAvroProducerV1.class);
     private final String bootstrapServers = "127.0.0.1:9092";
     private final String schemaRegistryUrl = "http://127.0.0.1:8081";
-    private final String topic = "customer-avro";
+    private final String topic = "customer-avro-topic";
 
     public KafkaAvroProducerV1() {
         disclaimer();

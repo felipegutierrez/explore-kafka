@@ -1,7 +1,7 @@
 # explore-kafka
 
 
-Install [Insomnia](https://support.insomnia.rest/article/23-installation#linux) and import the [rest-proxy-insomnia.json](kafka-rest-proxy/src/main/resources/rest-proxy-insomnia.json).
+Install [Insomnia](https://support.insomnia.rest/article/23-installation#linux) and import the [rest-proxy-insomnia.json](src/main/resources/rest-proxy-insomnia.json).
 
 ```
 # Add to sources

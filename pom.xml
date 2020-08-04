@@ -19,6 +19,7 @@
         <module>avro-examples</module>
         <module>kafka-schema-registry-docker</module>
         <module>kafka-schema-registry-avro-V1</module>
+        <module>kafka-schema-registry-avro-V2</module>
     </modules>
 
     <properties>

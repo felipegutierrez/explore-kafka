@@ -66,9 +66,9 @@ public class KafkaAvroProducerV2 {
     private void disclaimer() {
         logger.info("Please start the docker Kafka Schema registry form confluent before to use this class");
         logger.info("sudo docker-compose up");
-        logger.info("Kafka schema registry to achieve BACKWARD compatibility. Consume from version V1 to validate schema evolution.");
-        logger.info("BACKWARD evolution: means produce with a NEW Kafka Schema Registry and consume with an OLD Kafka Schema Registry.");
-        logger.info("the old schema registry has to have the default property set.");
+        logger.info("Kafka schema registry to achieve FORWARD compatibility. Consume from version V1 to validate schema evolution.");
+        logger.info("FORWARD evolution: means to update the producer to V2 (this class) and consume from a consumer V1 (OLD Kafka Schema Registry).");
+        logger.info("the old schema registry Consumer V1 has to have the default property set.");
         logger.info("java -jar kafka-schema-registry-avro-V1/target/kafka-schema-registry-avro-V1-1.0.jar -app 2");
         logger.info("");
     }

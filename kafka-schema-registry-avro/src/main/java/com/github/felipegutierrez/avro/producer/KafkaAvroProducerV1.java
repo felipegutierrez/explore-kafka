@@ -20,12 +20,12 @@ public class KafkaAvroProducerV1 {
 
         Properties properties = new Properties();
         // normal producer
-        properties.setProperty("bootstrap.servers", bootstrapServers);
-        properties.setProperty("acks", "all");
-        properties.setProperty("retries", "10");
+        properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+        properties.setProperty(ProducerConfig.ACKS_CONFIG, "all");
+        properties.setProperty(ProducerConfig.RETRIES_CONFIG, "10");
         // avro part
-        properties.setProperty("key.serializer", StringSerializer.class.getName());
-        properties.setProperty("value.serializer", KafkaAvroSerializer.class.getName());
+        properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+        properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, KafkaAvroSerializer.class.getName());
         properties.setProperty("schema.registry.url", schemaRegistryUrl);
 
         Producer<String, Customer> producer = new KafkaProducer<String, Customer>(properties);

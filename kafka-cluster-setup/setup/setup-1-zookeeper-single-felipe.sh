@@ -40,6 +40,7 @@ echo "ruok" | nc localhost 2181 ; echo
 
 # Install Zookeeper boot scripts
 sudo cp /home/felipe/workspace-idea/explore-kafka/kafka-cluster-setup/zookeeper/zookeeper /etc/init.d/zookeeper
+# change the respectives direcotries
 sudo vi /etc/init.d/zookeeper
 sudo chmod +x /etc/init.d/zookeeper
 sudo chown root:root /etc/init.d/zookeeper

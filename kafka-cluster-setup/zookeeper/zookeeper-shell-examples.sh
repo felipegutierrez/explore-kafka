@@ -18,10 +18,14 @@ get /my-node/deeper-node
 set /my-node/deeper-node "newdata"
 get /my-node/deeper-node
 # removes are recursive
-rmr /my-node
+# rmr /my-node  ## deprecated
+deleteall /my-node
 ls /
 # create a watcher
 create /node-to-watch ""
-get /node-to-watch true
+# get /node-to-watch true ## deprecated
+get -s /node-to-watch || get -w /node-to-watch
 set /node-to-watch "has-changed"
-rmr /node-to-watch
+# rmr /node-to-watch  ## deprecated
+deleteall /node-to-watch
+

@@ -5,4 +5,4 @@ nano zoonavigator-docker-compose.yml
 
 # copy the zookeeper/zoonavigator-docker-compose.yml file
 # run it
-docker-compose -f zoonavigator-docker-compose.yml up -d
+sudo docker-compose -f zoonavigator-docker-compose.yml up -d

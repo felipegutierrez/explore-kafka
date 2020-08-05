@@ -5,6 +5,7 @@ Using [Kafka 2.5.0](http://kafka.apache.org/) to implement and practice the exer
  - [Learn Apache Kafka for Beginners v2](https://www.udemy.com/course/kafka-connect/)
  - [Kafka Connect Hands-on Learning](https://www.udemy.com/course/kafka-connect/)
  - [Confluent Schema Registry & REST Proxy](https://www.udemy.com/course/confluent-schema-registry/)
+ - [Kafka Cluster Setup & Administration](https://www.udemy.com/course/kafka-cluster-setup/)
 
 
 Start the zookeeper:

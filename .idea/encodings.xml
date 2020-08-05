@@ -6,6 +6,8 @@
     <file url="file://$PROJECT_DIR$/avro-examples/target/generated-sources/avro" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafka-basics/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafka-basics/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/kafka-cluster-setup/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/kafka-cluster-setup/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafka-connect-docker/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafka-connect-docker/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafka-elasticsearch/src/main/java" charset="UTF-8" />

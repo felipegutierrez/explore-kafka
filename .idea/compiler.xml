@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="kafka-schema-registry-avro-V1" />
+        <module name="kafka-cluster-setup" />
         <module name="kafka-connect-docker" />
         <module name="kafka-schema-registry-docker" />
         <module name="kafka-rest-proxy" />

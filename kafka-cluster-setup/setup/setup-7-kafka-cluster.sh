@@ -8,7 +8,7 @@ echo "* hard nofile 100000
 * soft nofile 100000" | sudo tee --append /etc/security/limits.conf
 sudo reboot
 sudo service zookeeper start
-sudo chown -R ubuntu:ubuntu /data/kafka
+sudo chown -R flink:flink /data/kafka
 
 # edit the config
 rm config/server.properties
@@ -29,12 +29,12 @@ sudo service kafka start
 # verify it's working
 nc -vz localhost 9092
 # look at the logs
-cat /home/ubuntu/kafka/logs/server.log
+cat /home/flink/kafka/logs/server.log
 # make sure to fix the __consumer_offsets topic
-bin/kafka-topics.sh --zookeeper zookeeper1:2181/kafka --config min.insync.replicas=1 --topic __consumer_offsets --alter
+bin/kafka-topics.sh --zookeeper zookeeper01:2181/kafka --config min.insync.replicas=1 --topic __consumer_offsets --alter
 
 # read the topic on broker 1 by connecting to broker 2!
-bin/kafka-console-consumer.sh --bootstrap-server kafka2:9092 --topic first_topic --from-beginning
+bin/kafka-console-consumer.sh --bootstrap-server kafka02:9092 --topic first_topic --from-beginning
 
 
 # DO THE SAME FOR BROKER 3

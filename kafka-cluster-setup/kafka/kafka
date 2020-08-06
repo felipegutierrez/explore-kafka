@@ -1,6 +1,6 @@
 #!/bin/bash
 #/etc/init.d/kafka
-DAEMON_PATH=/home/ubuntu/kafka/bin
+DAEMON_PATH=/home/flink/kafka/bin
 DAEMON_NAME=kafka
 # Check that networking is up.
 #[ ${NETWORKING} = "no" ] && exit 0
@@ -17,7 +17,7 @@ case "$1" in
             echo "Kafka is already running"
         else
           echo "Starting $DAEMON_NAME"
-          $DAEMON_PATH/kafka-server-start.sh -daemon /home/ubuntu/kafka/config/server.properties
+          $DAEMON_PATH/kafka-server-start.sh -daemon /home/flink/kafka/config/server.properties
         fi
         ;;
   stop)

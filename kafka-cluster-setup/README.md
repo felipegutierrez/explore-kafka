@@ -103,6 +103,9 @@ Topic: second_topic	PartitionCount: 3	ReplicationFactor: 3	Configs:
 
 ```
 
+## Kafka Manager
+ - Launch the docker Kafka manager [setup/setup-9-tools-kafka-manager.sh](setup/setup-9-tools-kafka-manager.sh) and access it from [http://127.0.0.1:9000/](http://127.0.0.1:9000/).
+![Kafka manager](figures/kafka-broker-manager.png)
 
 
 

@@ -1,7 +1,7 @@
 package com.github.felipegutierrez.kafka.connector.stream.udemy;
 
-import com.github.felipegutierrez.kafka.registry.avro.udemy.Review;
 import com.github.felipegutierrez.kafka.connector.stream.util.UdemyConfig;
+import com.github.felipegutierrez.kafka.registry.avro.udemy.Review;
 import com.typesafe.config.ConfigFactory;
 import io.confluent.kafka.serializers.KafkaAvroSerializerConfig;
 import io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde;
@@ -23,7 +23,6 @@ public class KafkaStreamUdemyFraudDetector {
 
     private final UdemyConfig appConfig;
 
-
     public KafkaStreamUdemyFraudDetector() {
         appConfig = new UdemyConfig(ConfigFactory.load());
     }
@@ -38,7 +37,7 @@ public class KafkaStreamUdemyFraudDetector {
 
     private Properties getKafkaStreamsConfig() {
         Properties config = new Properties();
-        config.put(StreamsConfig.APPLICATION_ID_CONFIG, appConfig.getApplicationId());
+        config.put(StreamsConfig.APPLICATION_ID_CONFIG, appConfig.getApplicationFraudId());
         config.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, appConfig.getBootstrapServers());
         config.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 
@@ -59,7 +58,7 @@ public class KafkaStreamUdemyFraudDetector {
      *
      * @param config
      * @return
-     * @see https://docs.confluent.io/current/streams/javadocs/org/apache/kafka/streams/kstream/KStream.html#branch-org.apache.kafka.streams.kstream.Predicate...-
+     * @link https://docs.confluent.io/current/streams/javadocs/org/apache/kafka/streams/kstream/KStream.html#branch-org.apache.kafka.streams.kstream.Predicate...-
      */
     private KafkaStreams createTopology(Properties config) {
         StreamsBuilder builder = new StreamsBuilder();

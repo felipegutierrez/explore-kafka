@@ -1,21 +1,27 @@
 package com.github.felipegutierrez.kafka.connector.stream.udemy;
 
-import com.github.felipegutierrez.kafka.registry.avro.udemy.Review;
 import com.github.felipegutierrez.kafka.connector.stream.util.UdemyConfig;
+import com.github.felipegutierrez.kafka.registry.avro.udemy.Review;
 import com.github.felipegutierrez.kafka.stream.avro.udemy.CourseStatistic;
 import com.typesafe.config.ConfigFactory;
 import io.confluent.kafka.serializers.KafkaAvroSerializerConfig;
 import io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.Serdes;
+import org.apache.kafka.common.utils.Bytes;
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.StreamsConfig;
-import org.apache.kafka.streams.kstream.Consumed;
-import org.apache.kafka.streams.kstream.KStream;
+import org.apache.kafka.streams.kstream.*;
+import org.apache.kafka.streams.state.KeyValueStore;
+import org.apache.kafka.streams.state.WindowStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Collections;
 import java.util.Properties;
 
@@ -23,7 +29,6 @@ public class KafkaStreamUdemyAggregator {
     private static final Logger logger = LoggerFactory.getLogger(KafkaStreamUdemyAggregator.class);
 
     private final UdemyConfig appConfig;
-
 
     public KafkaStreamUdemyAggregator() {
         appConfig = new UdemyConfig(ConfigFactory.load());
@@ -39,7 +44,7 @@ public class KafkaStreamUdemyAggregator {
 
     private Properties getKafkaStreamsConfig() {
         Properties config = new Properties();
-        config.put(StreamsConfig.APPLICATION_ID_CONFIG, appConfig.getApplicationId());
+        config.put(StreamsConfig.APPLICATION_ID_CONFIG, appConfig.getApplicationAggregateId());
         config.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, appConfig.getBootstrapServers());
         config.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 
@@ -68,22 +73,18 @@ public class KafkaStreamUdemyAggregator {
         Serdes.StringSerde stringSerde = new Serdes.StringSerde();
 
         StreamsBuilder builder = new StreamsBuilder();
-
-
-        /*
-// we build our stream with a timestamp extractor
+        // we build our stream with a timestamp extractor
         KStream<String, Review> validReviews = builder.stream(
                 appConfig.getValidTopicName(),
                 Consumed.with(longSerde,
                         reviewSpecificAvroSerde,
                         new ReviewTimestampExtractor(),
                         null)
-        ).selectKey(((key, review) -> review.getCourse().getId().toString()));
-
+        ).selectKey(((key, review) -> Long.toString(review.getCourse().getId())));
 
         // we build a long term topology (since inception)
         KTable<String, CourseStatistic> longTermCourseStats =
-                validReviews.groupByKey().<CourseStatistic>aggregate(
+                validReviews.groupByKey().aggregate(
                         this::emptyStats,
                         this::reviewAggregator,
                         Materialized.<String, CourseStatistic, KeyValueStore<Bytes, byte[]>>as("long-term-stats")
@@ -107,7 +108,7 @@ public class KafkaStreamUdemyAggregator {
                 .filter((k, review) -> !isReviewExpired(review, windowSizeMs)) // recent reviews
                 .groupByKey()
                 .windowedBy(timeWindows)
-                .<CourseStatistic>aggregate(
+                .aggregate(
                         this::emptyStats,
                         this::reviewAggregator,
                         Materialized.<String, CourseStatistic, WindowStore<Bytes, byte[]>>as("recent-stats")
@@ -118,12 +119,12 @@ public class KafkaStreamUdemyAggregator {
                 .toStream()
                 // we keep the current window only
                 .filter((window, courseStat) -> keepCurrentWindow(window, advanceMs))
-                .peek(((key, value) -> log.info(value.toString())))
+                .peek(((key, value) -> logger.info(value.toString())))
                 .selectKey((k, v) -> k.key());
 
         // recent stats
         recentStats.to(appConfig.getRecentStatsTopicName(), Produced.with(stringSerde, courseStatisticSpecificAvroSerde));
-         */
+
         // for learning purposes: Using the lower level API (uncomment the code)
 //        // Create a state store manually.
 //        // It will contain only the most recent reviews
@@ -159,7 +160,7 @@ public class KafkaStreamUdemyAggregator {
 
         return new KafkaStreams(builder.build(), config);
     }
-/*
+
     private boolean keepCurrentWindow(Windowed<String> window, long advanceMs) {
         long now = System.currentTimeMillis();
 
@@ -168,12 +169,15 @@ public class KafkaStreamUdemyAggregator {
     }
 
     private Boolean isReviewExpired(Review review, Long maxTime) {
-        return review.getCreated().getMillis() + maxTime < System.currentTimeMillis();
+        return review.getCreated().toEpochMilli() + maxTime < System.currentTimeMillis();
     }
 
     private CourseStatistic emptyStats() {
+        LocalDate date = LocalDate.parse("9999-12-31");
+        Instant instant = date.atStartOfDay(ZoneId.of("Europe/Paris")).toInstant();
         return CourseStatistic.newBuilder()
-                .setLastReviewTime(new DateTime(0L))
+                .setLastReviewTime(instant)
+                // .setLastReviewTime(new DateTime(0L))
                 .build();
     }
 
@@ -183,7 +187,7 @@ public class KafkaStreamUdemyAggregator {
         courseStatisticBuilder.setCourseId(newReview.getCourse().getId());
         courseStatisticBuilder.setCourseTitle(newReview.getCourse().getTitle());
 
-        String reviewRating = newReview.getRating().toString();
+        String reviewRating = newReview.getRating();
         // increase or decrease?
         Integer incOrDec = (reviewRating.contains("-")) ? -1 : 1;
 
@@ -213,7 +217,7 @@ public class KafkaStreamUdemyAggregator {
         }
 
         Long newCount = courseStatisticBuilder.getCountReviews() + incOrDec;
-        Double newSumRating = courseStatisticBuilder.getSumRating() + new Double(newReview.getRating().toString());
+        Double newSumRating = courseStatisticBuilder.getSumRating() + new Double(newReview.getRating());
         Double newAverageRating = newSumRating / newCount;
 
         courseStatisticBuilder.setCountReviews(newCount);
@@ -224,8 +228,7 @@ public class KafkaStreamUdemyAggregator {
         return courseStatisticBuilder.build();
     }
 
-    private DateTime latest(DateTime a, DateTime b) {
+    private Instant latest(Instant a, Instant b) {
         return a.isAfter(b) ? a : b;
     }
-     */
 }

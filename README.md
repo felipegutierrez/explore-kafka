@@ -7,6 +7,9 @@ Using [Kafka 2.5.0](http://kafka.apache.org/) to implement and practice the exer
 
 ## Implementing an end-to-end Kafka pipeline
 This assigment is to deploy an end-to-end Stream pipeline which uses Kafka Producer and Consumer, Kafka Connect, Kafka Sink, and Kafka Stream. Instructions are available on the blog post [How to use Apache Kafka to transform a batch pipeline into a real-time one](https://medium.com/@stephane.maarek/how-to-use-apache-kafka-to-transform-a-batch-pipeline-into-a-real-time-one-831b48a6ad85).
+
+![Kafka end-to-end stream pipeline. This figure is from https://medium.com/@stephane.maarek/how-to-use-apache-kafka-to-transform-a-batch-pipeline-into-a-real-time-one-831b48a6ad85](figures/kafka-end-to-end-pipeline.png)
+
 ### SETUP
 Download Confluent Platform 5.1.1 [https://www.confluent.io/download/](https://www.confluent.io/download/). Unzip and add confluent-5.1.1/bin to your PATH. Download and install Docker for Mac / Windows / Linux and execute.
 ```

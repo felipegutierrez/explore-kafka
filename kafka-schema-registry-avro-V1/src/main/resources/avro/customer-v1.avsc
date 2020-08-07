@@ -1,6 +1,6 @@
 {
      "type": "record",
-     "namespace": "com.github.felipegutierrez.avro.pojo",
+     "namespace": "com.github.felipegutierrez.kafka.registry.avro.pojo",
      "name": "Customer",
      "version": "1",
      "fields": [

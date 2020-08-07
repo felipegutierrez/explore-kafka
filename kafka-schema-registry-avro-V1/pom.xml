@@ -8,8 +8,7 @@
         <version>1.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <!--    <artifactId>kafka-schema-registry-avro-V1</artifactId>-->
-    <groupId>com.github.felipegutierrez.avro</groupId>
+    <groupId>com.github.felipegutierrez.kafka.registry</groupId>
     <artifactId>kafka-schema-registry-avro-V1</artifactId>
     <version>1.0</version>
     <modelVersion>4.0.0</modelVersion>
@@ -97,7 +96,7 @@
                             <transformers>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.github.felipegutierrez.avro.app.App</mainClass>
+                                    <mainClass>com.github.felipegutierrez.kafka.registry.avro.app.App</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>

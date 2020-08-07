@@ -6,7 +6,9 @@
     <version>1.0</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
+  <groupId>com.github.felipegutierrez.kafka.registry.avro</groupId>
   <artifactId>avro-examples</artifactId>
+  <version>1.0</version>
   <build>
     <plugins>
       <plugin>
@@ -21,7 +23,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>com.github.felipegutierrez.avro.app.App</mainClass>
+                  <mainClass>com.github.felipegutierrez.kafka.registry.avro.app.App</mainClass>
                 </transformer>
               </transformers>
             </configuration>

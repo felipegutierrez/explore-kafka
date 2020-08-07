@@ -100,8 +100,18 @@ KafkaStreamUdemyFraudDetector - Valid: 29580626
 KafkaStreamUdemyFraudDetector - Valid: 29581252
 KafkaStreamUdemyFraudDetector - Valid: 29584788
 ```
-### Step 3:
-
+### Step 3: Reviews Aggregator with Kafka Streams
+Launche the consumers.
+```
+$ cd /home/felipe/Servers/confluent-5.5.1
+$ ./bin/kafka-avro-console-consumer --topic recent-stats --bootstrap-server localhost:9092 --from-beginning
+$ ./bin/kafka-avro-console-consumer --topic long-term-stats --bootstrap-server localhost:9092 --from-beginning
+```
+Launch the Kafka stream aggregator of reviews and observe the out put on the consumers launched before.
+```
+cd /home/felipe/workspace-idea/explore-kafka
+java -jar kafka-streams-basics/target/kafka-streams-basics-1.0.jar -app 3
+```
 
 
 

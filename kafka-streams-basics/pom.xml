@@ -6,10 +6,12 @@
         <artifactId>explore-kafka</artifactId>
         <groupId>explore-kafka</groupId>
         <version>1.0</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
-
+    <groupId>com.github.felipegutierrez.kafka.connector.stream</groupId>
     <artifactId>kafka-streams-basics</artifactId>
+    <version>1.0</version>
+    <modelVersion>4.0.0</modelVersion>
 
     <repositories>
         <repository>
@@ -52,12 +54,6 @@
             <version>${confluent.version}</version>
         </dependency>
 
-        <!--        <dependency>-->
-        <!--            <groupId>com.typesafe</groupId>-->
-        <!--            <artifactId>config</artifactId>-->
-        <!--            <version>${typesafe.config.version}</version>-->
-        <!--        </dependency>-->
-
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
@@ -70,7 +66,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.felipegutierrez.avro</groupId>
+            <groupId>com.github.felipegutierrez.kafka.registry</groupId>
             <artifactId>kafka-schema-registry-avro-V1</artifactId>
             <version>1.0</version>
         </dependency>
@@ -94,9 +90,52 @@
                             <transformers>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.github.felipegutierrez.kafka.app.App</mainClass>
+                                    <mainClass>com.github.felipegutierrez.kafka.connector.stream.app.App</mainClass>
                                 </transformer>
                             </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--for specific record-->
+            <plugin>
+                <groupId>org.apache.avro</groupId>
+                <artifactId>avro-maven-plugin</artifactId>
+                <version>${avro.version}</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>schema</goal>
+                            <goal>protocol</goal>
+                            <goal>idl-protocol</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirectory>${project.basedir}/src/main/resources/avro</sourceDirectory>
+                            <stringType>String</stringType>
+                            <createSetters>false</createSetters>
+                            <enableDecimalLogicalType>true</enableDecimalLogicalType>
+                            <fieldVisibility>private</fieldVisibility>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- force discovery of generated classes -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>target/generated-sources/avro</source>
+                            </sources>
                         </configuration>
                     </execution>
                 </executions>

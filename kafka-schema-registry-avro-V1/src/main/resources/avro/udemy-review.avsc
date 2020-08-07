@@ -1,5 +1,5 @@
 [
-  {"namespace": "com.github.felipegutierrez.avro.udemy",
+  {"namespace": "com.github.felipegutierrez.kafka.registry.avro.udemy",
     "type": "record",
     "name": "User",
     "fields": [
@@ -8,7 +8,7 @@
       {"name": "display_name",  "type": "string"}
     ]
   },
-  {"namespace": "com.github.felipegutierrez.avro.udemy",
+  {"namespace": "com.github.felipegutierrez.kafka.registry.avro.udemy",
     "type": "record",
     "name": "Course",
     "fields": [
@@ -17,7 +17,7 @@
       {"name": "url",  "type": "string" }
     ]
   },
-  {"namespace": "com.github.felipegutierrez.avro.udemy",
+  {"namespace": "com.github.felipegutierrez.kafka.registry.avro.udemy",
     "type": "record",
     "name": "Review",
     "fields": [
@@ -27,8 +27,8 @@
       {"name": "rating", "type": "string", "doc": "review value"},
       {"name": "created",  "type": { "type" : "long", "logicalType" : "timestamp-millis" } },
       {"name": "modified",  "type": { "type" : "long", "logicalType" : "timestamp-millis" } },
-      {"name": "user", "type": "com.github.felipegutierrez.avro.udemy.User"},
-      {"name": "course", "type": "com.github.felipegutierrez.avro.udemy.Course"}
+      {"name": "user", "type": "com.github.felipegutierrez.kafka.registry.avro.udemy.User"},
+      {"name": "course", "type": "com.github.felipegutierrez.kafka.registry.avro.udemy.Course"}
     ]
   }
 ]

@@ -21,7 +21,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>com.github.felipegutierrez.kafka.app.App</mainClass>
+                  <mainClass>com.github.felipegutierrez.kafka.connector.stream.app.App</mainClass>
                 </transformer>
               </transformers>
             </configuration>

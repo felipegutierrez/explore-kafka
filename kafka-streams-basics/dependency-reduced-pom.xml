@@ -6,7 +6,9 @@
     <version>1.0</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
+  <groupId>com.github.felipegutierrez.kafka.connector.stream</groupId>
   <artifactId>kafka-streams-basics</artifactId>
+  <version>1.0</version>
   <build>
     <plugins>
       <plugin>
@@ -21,9 +23,50 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>com.github.felipegutierrez.kafka.app.App</mainClass>
+                  <mainClass>com.github.felipegutierrez.kafka.connector.stream.app.App</mainClass>
                 </transformer>
               </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.avro</groupId>
+        <artifactId>avro-maven-plugin</artifactId>
+        <version>${avro.version}</version>
+        <executions>
+          <execution>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>schema</goal>
+              <goal>protocol</goal>
+              <goal>idl-protocol</goal>
+            </goals>
+            <configuration>
+              <sourceDirectory>${project.basedir}/src/main/resources/avro</sourceDirectory>
+              <stringType>String</stringType>
+              <createSetters>false</createSetters>
+              <enableDecimalLogicalType>true</enableDecimalLogicalType>
+              <fieldVisibility>private</fieldVisibility>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>3.0.0</version>
+        <executions>
+          <execution>
+            <id>add-source</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>add-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>target/generated-sources/avro</source>
+              </sources>
             </configuration>
           </execution>
         </executions>

@@ -6,10 +6,12 @@
         <artifactId>explore-kafka</artifactId>
         <groupId>explore-kafka</groupId>
         <version>1.0</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
-
+    <groupId>com.github.felipegutierrez.kafka.registry</groupId>
     <artifactId>kafka-schema-registry-avro-V2</artifactId>
+    <version>1.0</version>
+    <modelVersion>4.0.0</modelVersion>
 
     <!--necessary to resolve confluent dependencies-->
     <repositories>
@@ -60,7 +62,7 @@
                             <transformers>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.github.felipegutierrez.avro.app.App</mainClass>
+                                    <mainClass>com.github.felipegutierrez.kafka.registry.avro.app.App</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>

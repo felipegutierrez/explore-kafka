@@ -6,13 +6,12 @@
         <artifactId>explore-kafka</artifactId>
         <groupId>explore-kafka</groupId>
         <version>1.0</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
-
-    <!--    <groupId>explore-kafka</groupId>-->
+    <groupId>com.github.felipegutierrez.kafka.connector</groupId>
     <artifactId>kafka-source-connector-github</artifactId>
-    <!--    <version>1.0</version>-->
-    <!--    <packaging>jar</packaging>-->
+    <version>1.0</version>
+    <modelVersion>4.0.0</modelVersion>
     <name>kafka-source-connector-github</name>
 
     <dependencies>

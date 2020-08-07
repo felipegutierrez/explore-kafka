@@ -58,13 +58,10 @@ java -jar kafka-schema-registry-avro-V2/target/kafka-schema-registry-avro-V2-1.0
 
 ## Implementing an end-to-end Kafka pipeline
 
-This assigment is to deploy an end-to-end Stream pipeline which uses Kafka Producer and Consumer, Kafka Connect, Kafka Sink, and Kafka Stream. Instructions are available on the blog post [https://medium.com/@stephane.maarek/how-to-use-apache-kafka-to-transform-a-batch-pipeline-into-a-real-time-one-831b48a6ad85](https://medium.com/@stephane.maarek/how-to-use-apache-kafka-to-transform-a-batch-pipeline-into-a-real-time-one-831b48a6ad85)
+This assigment is to deploy an end-to-end Stream pipeline which uses Kafka Producer and Consumer, Kafka Connect, Kafka Sink, and Kafka Stream. Instructions are available on the blog post [How to use Apache Kafka to transform a batch pipeline into a real-time one](https://medium.com/@stephane.maarek/how-to-use-apache-kafka-to-transform-a-batch-pipeline-into-a-real-time-one-831b48a6ad85).
 
 ### SETUP
-
-Download Confluent Platform 5.1.1 [https://www.confluent.io/download/](https://www.confluent.io/download/). Unzip and add confluent-5.1.1/bin to your PATH.
-
-Download and install Docker for Mac / Windows / Linux and do
+Download Confluent Platform 5.1.1 [https://www.confluent.io/download/](https://www.confluent.io/download/). Unzip and add confluent-5.1.1/bin to your PATH. Download and install Docker for Mac / Windows / Linux and execute.
 ```
 $ sudo docker-compose up -d
 Creating network "explore-kafka_default" with the default driver
@@ -124,8 +121,8 @@ Build and package the different project components (make sure you have maven ins
 /home/felipe/workspace-idea/explore-kafka
 mvn clean package
 ```
-## PLAYING
-## Step 1: Review Producer
+### PLAYING
+### Step 1: Review Producer
 Start an avro consumer on our reviews topic
 ```
 ./bin/kafka-avro-console-consumer --topic udemy-reviews --bootstrap-server localhost:9092

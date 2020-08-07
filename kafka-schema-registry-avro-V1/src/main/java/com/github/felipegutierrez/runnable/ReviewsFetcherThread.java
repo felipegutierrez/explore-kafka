@@ -36,7 +36,8 @@ public class ReviewsFetcherThread implements Runnable {
                     reviews = udemyRESTClient.getNextReviews();
                     log.info("Fetched " + reviews.size() + " reviews");
                     if (reviews.size() == 0) {
-                        keepOnRunning = false;
+                        Thread.sleep(1000);
+                        // keepOnRunning = false;
                     } else {
                         // this may block if the queue is full - this is flow control
                         log.info("Queue size :" + reviewsQueue.size());

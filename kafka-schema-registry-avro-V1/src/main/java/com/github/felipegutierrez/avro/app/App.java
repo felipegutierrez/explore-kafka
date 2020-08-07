@@ -2,6 +2,7 @@ package com.github.felipegutierrez.avro.app;
 
 import com.github.felipegutierrez.avro.consumer.KafkaAvroConsumerV1;
 import com.github.felipegutierrez.avro.producer.KafkaAvroProducerV1;
+import com.github.felipegutierrez.avro.producer.UdemyReviewsProducerAvroMain;
 import com.github.felipegutierrez.avro.util.Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,6 +44,12 @@ public class App {
                     new KafkaAvroConsumerV1(offset);
                     app = 0;
                     break;
+                case 3:
+                    System.out.println("App 3 selected: " + UdemyReviewsProducerAvroMain.class.getSimpleName());
+                    UdemyReviewsProducerAvroMain udemyReviewsProducerAvroMain = new UdemyReviewsProducerAvroMain();
+                    udemyReviewsProducerAvroMain.start();
+                    app = 0;
+                    break;
                 default:
                     args = null;
                     System.out.println("No application selected [" + app + "] ");
@@ -52,7 +59,8 @@ public class App {
             logger.info("Applications available");
             logger.info("1 - " + KafkaAvroProducerV1.class.getSimpleName());
             logger.info("2 - " + KafkaAvroConsumerV1.class.getSimpleName());
-            logger.info("use: java -jar kafka-schema-registry-avro-V1/target/kafka-schema-registry-avro-V1-1.0.jar -app [1|2]");
+            logger.info("3 - " + UdemyReviewsProducerAvroMain.class.getSimpleName());
+            logger.info("use: java -jar kafka-schema-registry-avro-V1/target/kafka-schema-registry-avro-V1-1.0.jar -app [1|2|3]");
         }
     }
 }

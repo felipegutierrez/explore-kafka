@@ -11,6 +11,8 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import org.apache.http.HttpException;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.time.Instant;
@@ -19,7 +21,14 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * reviews can be retrieved from: https://www.udemy.com/api-2.0/courses/1141698/reviews
+ */
 public class UdemyRESTClient {
+    private static final Logger logger = LoggerFactory.getLogger(UdemyRESTClient.class);
+
+    private final String UDEMY_URL = "https://www.udemy.com/api-2.0/courses/";
+    private final String REVIEWS = "/reviews";
     private final Integer pageSize;
     private final String courseId;
     private Integer count;
@@ -28,6 +37,7 @@ public class UdemyRESTClient {
     public UdemyRESTClient(String courseId, Integer pageSize) {
         this.pageSize = pageSize;
         this.courseId = courseId;
+        logger.info("pageSize: " + this.pageSize + ", courseId: " + this.courseId);
     }
 
     private void init() throws HttpException {
@@ -48,8 +58,10 @@ public class UdemyRESTClient {
         return Collections.emptyList();
     }
 
+
     public ReviewApiResponse reviewApi(Integer pageSize, Integer page) throws HttpException {
-        String url = "https://www.udemy.com/api-2.0/courses/" + courseId + "/reviews";
+        String url = UDEMY_URL + courseId + REVIEWS;
+        logger.info("url: " + url);
         HttpResponse<JsonNode> jsonResponse = null;
         try {
             jsonResponse = Unirest.get(url)

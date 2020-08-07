@@ -49,7 +49,7 @@ mvn clean package
 java -jar kafka-basics/target/kafka-basics-1.0.jar -app [1|2|3|4|5|6]
 java -jar kafka-twitter/target/kafka-twitter-1.0.jar -app 1 -elements "corona|covid|covid-19"
 java -jar kafka-elasticsearch/target/kafka-elasticsearch-1.0.jar -app [1|2|3|4]
-java -jar kafka-streams-twitter/target/kafka-streams-twitter-1.0.jar -app [1]
+java -jar kafka-streams-basics/target/kafka-streams-basics-1.0.jar -app [1|2]
 java -jar kafka-source-connector-github/target/kafka-source-connector-github-1.0.jar -app [1]
 java -jar avro-examples/target/avro-examples-1.0.jar -app [1|2|3|4]
 java -jar kafka-schema-registry-avro-V1/target/kafka-schema-registry-avro-V1-1.0.jar -app [1|2|3]
@@ -134,8 +134,26 @@ cd /home/felipe/workspace-idea/explore-kafka
 java -jar kafka-schema-registry-avro-V1/target/kafka-schema-registry-avro-V1-1.0.jar -app 3
 ```
 This pulls overs 1000 reviews with some intentional delay of 50 ms between each send, so you can see it stream in your consumer.
+### Step 2: The Kafka stream fraud detector
+Launch the fraud detector in another terminal.
+```
+cd /home/felipe/workspace-idea/explore-kafka
+java -jar kafka-streams-basics/target/kafka-streams-basics-1.0.jar -app 2
 
-
+# sample output:
+KafkaStreamUdemyFraudDetector - Valid: 29560326
+KafkaStreamUdemyFraudDetector - !! Fraud !!: 29567558
+KafkaStreamUdemyFraudDetector - Valid: 29569624
+KafkaStreamUdemyFraudDetector - Valid: 29575044
+KafkaStreamUdemyFraudDetector - Valid: 29575286
+KafkaStreamUdemyFraudDetector - !! Fraud !!: 29577702
+KafkaStreamUdemyFraudDetector - Valid: 29578162
+KafkaStreamUdemyFraudDetector - Valid: 29580356
+KafkaStreamUdemyFraudDetector - Valid: 29580626
+KafkaStreamUdemyFraudDetector - Valid: 29581252
+KafkaStreamUdemyFraudDetector - Valid: 29584788
+```
+### Step 3:
 
 
 

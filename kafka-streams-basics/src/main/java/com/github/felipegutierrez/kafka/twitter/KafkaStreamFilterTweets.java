@@ -1,4 +1,4 @@
-package com.github.felipegutierrez.kafka.app;
+package com.github.felipegutierrez.kafka.twitter;
 
 
 import com.google.gson.JsonParser;

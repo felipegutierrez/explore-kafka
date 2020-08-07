@@ -6,10 +6,13 @@
         <artifactId>explore-kafka</artifactId>
         <groupId>explore-kafka</groupId>
         <version>1.0</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
-
+    <!--    <artifactId>kafka-schema-registry-avro-V1</artifactId>-->
+    <groupId>com.github.felipegutierrez.avro</groupId>
     <artifactId>kafka-schema-registry-avro-V1</artifactId>
+    <version>1.0</version>
+    <modelVersion>4.0.0</modelVersion>
 
     <!--necessary to resolve confluent dependencies-->
     <repositories>

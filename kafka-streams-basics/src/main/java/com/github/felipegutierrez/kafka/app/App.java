@@ -1,5 +1,7 @@
 package com.github.felipegutierrez.kafka.app;
 
+import com.github.felipegutierrez.kafka.twitter.KafkaStreamFilterTweets;
+import com.github.felipegutierrez.kafka.udemy.KafkaStreamUdemyFraudDetector;
 import com.github.felipegutierrez.kafka.util.Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +35,12 @@ public class App {
                     new KafkaStreamFilterTweets();
                     app = 0;
                     break;
+                case 2:
+                    System.out.println("App 2 selected: " + KafkaStreamUdemyFraudDetector.class.getSimpleName());
+                    KafkaStreamUdemyFraudDetector fraudDetector = new KafkaStreamUdemyFraudDetector();
+                    fraudDetector.start();
+                    app = 0;
+                    break;
                 default:
                     args = null;
                     System.out.println("No application selected [" + app + "] ");
@@ -41,7 +49,8 @@ public class App {
         } else {
             logger.info("Applications available");
             logger.info("1 - " + KafkaStreamFilterTweets.class.getSimpleName());
-            logger.info("use: java -jar kafka-elasticsearch/target/kafka-streams-twitter-1.0.jar -app [1]");
+            logger.info("2 - " + KafkaStreamUdemyFraudDetector.class.getSimpleName());
+            logger.info("use: java -jar kafka-streams-basics/target/kafka-streams-basics-1.0.jar -app [1]");
         }
     }
 }

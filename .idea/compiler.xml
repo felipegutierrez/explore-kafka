@@ -14,9 +14,9 @@
         <module name="kafka-twitter" />
         <module name="kafka-schema-registry-avro-V2" />
         <module name="kafka-source-connector-github" />
+        <module name="kafka-streams-basics" />
         <module name="kafka-basics" />
         <module name="kafka-elasticsearch" />
-        <module name="kafka-streams-twitter" />
         <module name="avro-examples" />
       </profile>
     </annotationProcessing>

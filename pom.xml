@@ -13,7 +13,7 @@
         <module>kafka-basics</module>
         <module>kafka-twitter</module>
         <module>kafka-elasticsearch</module>
-        <module>kafka-streams-twitter</module>
+        <module>kafka-streams-basics</module>
         <module>kafka-connect-docker</module>
         <module>kafka-source-connector-github</module>
         <module>avro-examples</module>

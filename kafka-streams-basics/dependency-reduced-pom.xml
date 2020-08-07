@@ -6,7 +6,7 @@
     <version>1.0</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>kafka-streams-twitter</artifactId>
+  <artifactId>kafka-streams-basics</artifactId>
   <build>
     <plugins>
       <plugin>
@@ -30,4 +30,10 @@
       </plugin>
     </plugins>
   </build>
+  <repositories>
+    <repository>
+      <id>confluent</id>
+      <url>http://packages.confluent.io/maven/</url>
+    </repository>
+  </repositories>
 </project>

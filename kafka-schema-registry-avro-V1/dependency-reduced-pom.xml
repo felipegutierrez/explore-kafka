@@ -6,7 +6,9 @@
     <version>1.0</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
+  <groupId>com.github.felipegutierrez.avro</groupId>
   <artifactId>kafka-schema-registry-avro-V1</artifactId>
+  <version>1.0</version>
   <build>
     <plugins>
       <plugin>

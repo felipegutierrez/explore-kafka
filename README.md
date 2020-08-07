@@ -58,7 +58,7 @@ ksql-server is [UP]
 Starting control-center
 control-center is [UP]
 ```
-Delete and create all the topics we're going to use for this demo
+Delete and create all the topics we're going to use for this demo.
 ```
 ./bin/kafka-topics --delete --topic udemy-reviews --zookeeper localhost:2181
 ./bin/kafka-topics --delete --topic udemy-reviews-valid --zookeeper localhost:2181
@@ -71,6 +71,8 @@ Delete and create all the topics we're going to use for this demo
 ./bin/kafka-topics --create --topic udemy-reviews-fraud --partitions 3 --replication-factor 1 --zookeeper localhost:2181
 ./bin/kafka-topics --create --topic long-term-stats --partitions 3 --replication-factor 1 --zookeeper localhost:2181
 ./bin/kafka-topics --create --topic recent-stats --partitions 3 --replication-factor 1 --zookeeper localhost:2181
+
+./bin/kafka-topics --list --zookeeper localhost:2181
 ```
 Build and package the different project components (make sure you have maven installed)
 ```
@@ -135,9 +137,149 @@ output of the topic `long-term-stats`:
 {"course_id":1075642,"course_title":"Apache Kafka Series - Learn Apache Kafka for Beginners v2","average_rating":4.664631545270343,"count_reviews":18754,"count_five_stars":11781,"count_four_stars":5935,"count_three_stars":888,"count_two_stars":102,"count_one_star":48,"count_zero_star":0,"last_review_time":253402210800000,"sum_rating":87480.5}
 {"course_id":1075642,"course_title":"Apache Kafka Series - Learn Apache Kafka for Beginners v2","average_rating":4.664725069897484,"count_reviews":19314,"count_five_stars":12140,"count_four_stars":6106,"count_three_stars":914,"count_two_stars":104,"count_one_star":50,"count_zero_star":0,"last_review_time":253402210800000,"sum_rating":90094.5}
 ```
-### Kafka Connect Sink — Exposing that data back to the users
+### Step 4: Kafka Connect Sink — Exposing that data back to the users
+Load the JDBC Sink Kafka connector
+```
+$ confluent local load SinkTopics -- -d explore-kafka/kafka-connect-docker/src/main/resources/code/sink/demo-postgres/SinkTopicsInPostgres.properties 
+    The local commands are intended for a single-node development environment
+    only, NOT for production usage. https://docs.confluent.io/current/cli/index.html
 
+{
+  "name": "SinkTopics",
+  "config": {
+    "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+    "tasks.max": "3",
+    "connection.url": "jdbc:postgresql://localhost:5432/postgres",
+    "connection.user": "postgres",
+    "connection.password": "postgres",
+    "insert.mode": "upsert",
+    "pk.mode": "record_value",
+    "pk.fields": "course_id",
+    "auto.create": "true",
+    "topics": "recent-stats,long-term-stats",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "name": "SinkTopics"
+  },
+  "tasks": [],
+  "type": "sink"
+}
+```
+Install some PostgreSQL client to visualize the data.
+```
+# Create the file repository configuration:
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
 
+# Import the repository signing key:
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+
+# Update the package lists:
+sudo apt update
+
+# Install the latest version of PostgreSQL.
+# If you want a specific version, use 'postgresql-12' or similar instead of 'postgresql':
+sudo apt install postgresql
+$ psql --host=localhost --port=5432 --username=postgres 
+Password for user postgres: 
+psql (12.3 (Ubuntu 12.3-1.pgdg18.04+1), server 9.6.18)
+Type "help" for help.
+
+$ psql --host=localhost --port=5432 --username=postgres 
+Password for user postgres: 
+psql (12.3 (Ubuntu 12.3-1.pgdg18.04+1), server 9.6.18)
+Type "help" for help.
+
+postgres=# \l
+                                 List of databases
+   Name    |  Owner   | Encoding |  Collate   |   Ctype    |   Access privileges   
+-----------+----------+----------+------------+------------+-----------------------
+ postgres  | postgres | UTF8     | en_US.utf8 | en_US.utf8 | 
+ template0 | postgres | UTF8     | en_US.utf8 | en_US.utf8 | =c/postgres          +
+           |          |          |            |            | postgres=CTc/postgres
+ template1 | postgres | UTF8     | en_US.utf8 | en_US.utf8 | =c/postgres          +
+           |          |          |            |            | postgres=CTc/postgres
+(3 rows)
+
+postgres=# \c postgres
+psql (12.3 (Ubuntu 12.3-1.pgdg18.04+1), server 9.6.18)
+You are now connected to database "postgres" as user "postgres".
+postgres=# \dt
+              List of relations
+ Schema |      Name       | Type  |  Owner   
+--------+-----------------+-------+----------
+ public | long-term-stats | table | postgres
+ public | recent-stats    | table | postgres
+(2 rows)
+
+postgres=# \d recent-stats
+                              Table "public.recent-stats"
+      Column       |            Type             | Collation | Nullable |    Default    
+-------------------+-----------------------------+-----------+----------+---------------
+ course_id         | bigint                      |           | not null | '-1'::integer
+ course_title      | text                        |           |          | ''::text
+ average_rating    | double precision            |           | not null | 
+ count_reviews     | bigint                      |           |          | 0
+ count_five_stars  | bigint                      |           |          | 0
+ count_four_stars  | bigint                      |           |          | 0
+ count_three_stars | bigint                      |           |          | 0
+ count_two_stars   | bigint                      |           |          | 0
+ count_one_star    | bigint                      |           |          | 0
+ count_zero_star   | bigint                      |           |          | 0
+ last_review_time  | timestamp without time zone |           | not null | 
+ sum_rating        | double precision            |           | not null | 
+Indexes:
+    "recent-stats_pkey" PRIMARY KEY, btree (course_id)
+
+postgres=# \d long-term-stats
+                             Table "public.long-term-stats"
+      Column       |            Type             | Collation | Nullable |    Default    
+-------------------+-----------------------------+-----------+----------+---------------
+ course_id         | bigint                      |           | not null | '-1'::integer
+ course_title      | text                        |           |          | ''::text
+ average_rating    | double precision            |           | not null | 
+ count_reviews     | bigint                      |           |          | 0
+ count_five_stars  | bigint                      |           |          | 0
+ count_four_stars  | bigint                      |           |          | 0
+ count_three_stars | bigint                      |           |          | 0
+ count_two_stars   | bigint                      |           |          | 0
+ count_one_star    | bigint                      |           |          | 0
+ count_zero_star   | bigint                      |           |          | 0
+ last_review_time  | timestamp without time zone |           | not null | 
+ sum_rating        | double precision            |           | not null | 
+Indexes:
+    "long-term-stats_pkey" PRIMARY KEY, btree (course_id)
+
+postgres=# select * from "recent-stats";
+ course_id |                       course_title                        |  average_rating  | count_reviews | count_five_stars | count_four_stars | count_three_stars | count_two_stars | count_one_star | count_zero_star |  last_review_time   | sum_rating 
+-----------+-----------------------------------------------------------+------------------+---------------+------------------+------------------+-------------------+-----------------+----------------+-----------------+---------------------+------------
+   1075642 | Apache Kafka Series - Learn Apache Kafka for Beginners v2 | 4.66452344931921 |          5288 |             3382 |             1592 |               252 |              36 |             26 |               0 | 9999-12-30 23:00:00 |      24666
+(1 row)
+
+postgres=# select * from "long-term-stats";
+ course_id |                       course_title                        |  average_rating  | count_reviews | count_five_stars | count_four_stars | count_three_stars | count_two_stars | count_one_star | count_zero_star |  last_review_time   | sum_rating 
+-----------+-----------------------------------------------------------+------------------+---------------+------------------+------------------+-------------------+-----------------+----------------+-----------------+---------------------+------------
+   1075642 | Apache Kafka Series - Learn Apache Kafka for Beginners v2 | 4.66490830967544 |         26066 |            16400 |             8212 |              1235 |             149 |             70 |               0 | 9999-12-30 23:00:00 |   121595.5
+(1 row)
+```
+
+### Step 5: Play some more
+Make sure the four components are running (you can shut down the consumers) and fire off more producers
+```
+export COURSE_ID=1141696  # Kafka Connect Course
+cd /home/felipe/workspace-idea/explore-kafka
+java -jar kafka-schema-registry-avro-V1/target/kafka-schema-registry-avro-V1-1.0.jar -app 3
+
+export COURSE_ID=1141702  # Kafka Setup and Administration Course
+java -jar kafka-schema-registry-avro-V1/target/kafka-schema-registry-avro-V1-1.0.jar -app 3
+
+export COURSE_ID=1294188  # Kafka Streams Course
+java -jar kafka-schema-registry-avro-V1/target/kafka-schema-registry-avro-V1-1.0.jar -app 3
+```
+### Step 6: Clean up
+```
+cd /home/felipe/workspace-idea/explore-kafka
+sudo docker-compose down
+confluent local destroy
+```
 
 ### Other applications
 All the other applications implemented on this project:

@@ -1,4 +1,4 @@
-Using [Kafka 2.5.0](http://kafka.apache.org/) to implement and practice the exercises from the Apache Kafka Series:
+Using [Kafka 2.6.0](http://kafka.apache.org/) to implement and practice the exercises from the Apache Kafka Series:
 
  - [Learn Apache Kafka for Beginners v2](https://www.udemy.com/course/kafka-connect/)
  - [Kafka Connect Hands-on Learning](https://www.udemy.com/course/kafka-connect/)

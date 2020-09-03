@@ -1,3 +1,6 @@
+
+[![Build Status](https://api.travis-ci.org/felipegutierrez/explore-kafka.svg?branch=master)](https://travis-ci.org/felipegutierrez/explore-kafka)
+
 Using [Kafka 2.6.0](http://kafka.apache.org/) to implement and practice the exercises from the Apache Kafka Series:
 
  - [Learn Apache Kafka for Beginners v2](https://www.udemy.com/course/kafka-connect/)

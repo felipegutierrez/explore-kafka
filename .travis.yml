@@ -1,0 +1,12 @@
+language: java
+sudo: false
+jdk:
+  - openjdk8
+cache:
+  directories:
+    - $HOME/.m2
+branches:
+  only:
+    - master
+script: mvn clean package
+

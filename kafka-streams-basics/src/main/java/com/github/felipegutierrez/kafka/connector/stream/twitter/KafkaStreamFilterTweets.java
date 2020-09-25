@@ -43,6 +43,14 @@ public class KafkaStreamFilterTweets {
 
         // start our stream application
         kafkaStreams.start();
+
+        logger.info("Topology: " + kafkaStreams.toString());
+
+        Runtime.getRuntime().addShutdownHook(new Thread(kafkaStreams::close));
+    }
+
+    public static void main(String[] args) {
+        new KafkaStreamFilterTweets();
     }
 
     private Integer extractUserFollowersInTweet(String tweetJson) {

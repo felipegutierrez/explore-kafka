@@ -7,6 +7,7 @@ Using [Kafka 2.6.0](http://kafka.apache.org/) to implement and practice the exer
  - [Kafka Connect Hands-on Learning](https://www.udemy.com/course/kafka-connect/)
  - [Confluent Schema Registry & REST Proxy](https://www.udemy.com/course/confluent-schema-registry/)
  - [Kafka Cluster Setup & Administration](https://www.udemy.com/course/kafka-cluster-setup/)
+ - [Kafka Streams for Data Processing](https://www.udemy.com/course/kafka-streams/)
 
 ## Implementing an end-to-end Kafka pipeline
 This assigment is to deploy an end-to-end Stream pipeline which uses Kafka Producer and Consumer, Kafka Connect, Kafka Sink, and Kafka Stream. Instructions are available on the blog post [How to use Apache Kafka to transform a batch pipeline into a real-time one](https://medium.com/@stephane.maarek/how-to-use-apache-kafka-to-transform-a-batch-pipeline-into-a-real-time-one-831b48a6ad85).

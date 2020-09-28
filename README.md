@@ -310,7 +310,10 @@ Start the Kafka brokers
 Topics
 ```
 ./bin/kafka-topics.sh  --zookeeper localhost:2181 --list
-./bin/kafka-topics.sh  --zookeeper localhost:2181 --create   --topic twitter_tweets --partitions 6 --replication-factor 1
+./bin/kafka-topics.sh  --zookeeper localhost:2181 --create --topic twitter_tweets --partitions 6 --replication-factor 1
+./bin/kafka-topics.sh  --zookeeper localhost:2181 --create --topic user-keys-and-colours --partitions 1 --replication-factor 1
+./bin/kafka-topics.sh  --zookeeper localhost:2181 --create --topic favourite-colour-input --partitions 1 --replication-factor 1
+./bin/kafka-topics.sh  --zookeeper localhost:2181 --create --topic favourite-colour-output --partitions 1 --replication-factor 1 --config cleanup.policy=compact
 ./bin/kafka-topics.sh  --zookeeper localhost:2181 --describe --topic twitter_tweets
 # Add, describe, delete configuration for a topic
 ./bin/kafka-configs.sh --zookeeper localhost:2181 --entity-type topics --entity-name twitter_tweets --describe
@@ -326,9 +329,12 @@ Log cleanup policies
 Start the producer from the command line or the Java producer Kafka application
 ```
 ./bin/kafka-console-producer.sh --broker-list localhost:9092 --topic first-topic --property parse.key=true --property key.separator=,
+./bin/kafka-console-producer.sh --broker-list localhost:9092 --topic favourite-colour-input
 ```
 Start the consumer with or without group and key-value properties
 ```
 ./bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic first-topic
 ./bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic first-topic --group my-first-app --property print.key=true --property key.separator=,
+./bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic favourite-colour-output --from-beginning --formatter kafka.tools.DefaultMessageFormatter --property print.key=true --property print.value=true --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer
+
 ```

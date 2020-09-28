@@ -1,5 +1,6 @@
 package com.github.felipegutierrez.kafka.connector.stream.app;
 
+import com.github.felipegutierrez.kafka.connector.stream.colour.FavouriteColourApp;
 import com.github.felipegutierrez.kafka.connector.stream.twitter.KafkaStreamFilterTweets;
 import com.github.felipegutierrez.kafka.connector.stream.udemy.KafkaStreamUdemyAggregator;
 import com.github.felipegutierrez.kafka.connector.stream.udemy.KafkaStreamUdemyFraudDetector;
@@ -48,6 +49,11 @@ public class App {
                     aggregator.start();
                     app = 0;
                     break;
+                case 4:
+                    System.out.println("App 4 selected: " + FavouriteColourApp.class.getSimpleName());
+                    FavouriteColourApp favouriteColourApp = new FavouriteColourApp();
+                    app = 0;
+                    break;
                 default:
                     args = null;
                     System.out.println("No application selected [" + app + "] ");
@@ -58,6 +64,7 @@ public class App {
             logger.info("1 - " + KafkaStreamFilterTweets.class.getSimpleName());
             logger.info("2 - " + KafkaStreamUdemyFraudDetector.class.getSimpleName());
             logger.info("3 - " + KafkaStreamUdemyAggregator.class.getSimpleName());
+            logger.info("4 - " + FavouriteColourApp.class.getSimpleName());
             logger.info("use: java -jar kafka-streams-basics/target/kafka-streams-basics-1.0.jar -app [1|2|3]");
         }
     }

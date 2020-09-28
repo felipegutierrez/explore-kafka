@@ -73,7 +73,7 @@ public class FavouriteColourApp {
                 .mapValues(value -> value.split(",")[1].toLowerCase())
                 // 4 - we filter undesired colours (could be a data sanitization step
                 //.filter((user, colour) -> Arrays.asList("green", "blue", "red").contains(colour));
-                ;
+                .peek((user, colour) -> System.out.println("user[" + user + "] colour[" + colour + "]"));
 
         // usersAndColours.to("favourite-colour-output");
         usersAndColours.to("user-keys-and-colours");
@@ -84,11 +84,14 @@ public class FavouriteColourApp {
         KTable<String, String> usersAndColoursTable = builder.table("user-keys-and-colours");
         // step 3 - we count the occurrences of colours
         KTable<String, Long> favouriteColours = usersAndColoursTable
-            // 5 - we group by colour within the KTable
-            .groupBy((user, colour) -> new KeyValue<>(colour, colour))
-            .count(Materialized.<String, Long, KeyValueStore<Bytes, byte[]>>as("CountsByColours").withKeySerde(stringSerde).withValueSerde(longSerde));
+                // 5 - we group by colour within the KTable
+                .groupBy((user, colour) -> new KeyValue<>(colour, colour))
+                .count(Materialized.<String, Long, KeyValueStore<Bytes, byte[]>>as("CountsByColours").withKeySerde(stringSerde).withValueSerde(longSerde));
         // 6 - we output the results to a Kafka Topic - don't forget the serializers
-        favouriteColours.toStream().to("favourite-colour-output", Produced.with(stringSerde, longSerde));
+        favouriteColours
+                .toStream()
+                .peek((colour, count) -> System.out.println("colour = " + colour + ", count = " + count))
+                .to("favourite-colour-output", Produced.with(stringSerde, longSerde));
 
         KafkaStreams streams = new KafkaStreams(builder.build(), config);
         // only do this in dev - not in prod

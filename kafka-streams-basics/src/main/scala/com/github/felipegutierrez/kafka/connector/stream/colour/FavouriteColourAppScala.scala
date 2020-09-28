@@ -66,8 +66,9 @@ object FavouriteColourAppScala {
       .selectKey[String]((key: String, value: String) => value.split(",")(0).toLowerCase)
       // 3 - we get the colour from the value (lowercase for safety)
       .mapValues((value: String) => value.split(",")(1).toLowerCase)
-    // 4 - we filter undesired colours (could be a data sanitization step)
-    // .filter((user: String, colour: String) => List("green", "blue", "red").contains(colour))
+      // 4 - we filter undesired colours (could be a data sanitization step)
+      // .filter((user: String, colour: String) => List("green", "blue", "red").contains(colour))
+      .peek((user: String, colour: String) => println("user[" + user + "] colour[" + colour + "]"))
 
     val intermediaryTopic = "user-keys-and-colours-scala"
     usersAndColours.to(intermediaryTopic)
@@ -85,7 +86,10 @@ object FavouriteColourAppScala {
       .count()
 
     // 6 - we output the results to a Kafka Topic - don't forget the serializers
-    favouriteColours.toStream.to("favourite-colour-output-scala")(Produced.`with`(stringSerde, longSerde))
+    favouriteColours
+      .toStream
+      .peek((colour: String, count: Long) => println("colour = " + colour + ", count = " + count))
+      .to("favourite-colour-output-scala")(Produced.`with`(stringSerde, longSerde))
 
     val streams: KafkaStreams = new KafkaStreams(builder.build(), config)
     streams.cleanUp()

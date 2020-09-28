@@ -84,10 +84,9 @@ public class FavouriteColourApp {
         KTable<String, String> usersAndColoursTable = builder.table("user-keys-and-colours");
         // step 3 - we count the occurrences of colours
         KTable<String, Long> favouriteColours = usersAndColoursTable
-                // 5 - we group by colour within the KTable
-                .groupBy((user, colour) -> new KeyValue<>(colour, colour))
-                .count(Materialized.<String, Long, KeyValueStore<Bytes, byte[]>>as("CountsByColours")
-                        .withKeySerde(stringSerde).withValueSerde(longSerde));
+            // 5 - we group by colour within the KTable
+            .groupBy((user, colour) -> new KeyValue<>(colour, colour))
+            .count(Materialized.<String, Long, KeyValueStore<Bytes, byte[]>>as("CountsByColours").withKeySerde(stringSerde).withValueSerde(longSerde));
         // 6 - we output the results to a Kafka Topic - don't forget the serializers
         favouriteColours.toStream().to("favourite-colour-output", Produced.with(stringSerde, longSerde));
 

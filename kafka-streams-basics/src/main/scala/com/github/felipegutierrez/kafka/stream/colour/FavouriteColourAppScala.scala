@@ -97,7 +97,7 @@ object FavouriteColourAppScala {
     streams.start()
 
     // print the topology
-    streams.localThreadsMetadata().forEach(t => System.out.print(t.toString))
+    streams.localThreadsMetadata().forEach(t => println(t.toString))
 
     // shutdown hook to correctly close the streams application
     Runtime.getRuntime.addShutdownHook(new Thread {

@@ -55,8 +55,8 @@ public class BankBalanceExactlyOnce {
         final Serde<JsonNode> jsonSerde = Serdes.serdeFrom(jsonSerializer, jsonDeserializer);
 
         StreamsBuilder builder = new StreamsBuilder();
-        // Step 1: We create the topic of bank transactions
-        KStream<String, JsonNode> bankTransactions = builder.stream("bank-transactions", Consumed.with(Serdes.String(), jsonSerde));
+        KStream<String, JsonNode> bankTransactions = builder
+                .stream("bank-transactions", Consumed.with(Serdes.String(), jsonSerde));
 
         // create the initial json object for balances
         ObjectNode initialBalance = JsonNodeFactory.instance.objectNode();

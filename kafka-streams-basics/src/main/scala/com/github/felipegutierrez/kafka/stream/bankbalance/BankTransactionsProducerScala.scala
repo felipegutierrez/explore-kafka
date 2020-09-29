@@ -12,11 +12,11 @@ import org.slf4j.{Logger, LoggerFactory}
 object BankTransactionsProducerScala {
 
   val topic: String = "bank-transaction";
+  val bootstrapServers: String = "127.0.0.1:9092"
 
   def main(args: Array[String]): Unit = {
     val logger: Logger = LoggerFactory.getLogger(BankTransactionsProducerScala.getClass)
 
-    val bootstrapServers: String = "127.0.0.1:9092"
     // create properties
     val config: Properties = new Properties
     config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers)

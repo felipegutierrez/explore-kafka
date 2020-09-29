@@ -1,4 +1,4 @@
-package com.github.felipegutierrez.kafka.connector.stream.colour
+package com.github.felipegutierrez.kafka.stream.colour
 
 import java.util.Properties
 

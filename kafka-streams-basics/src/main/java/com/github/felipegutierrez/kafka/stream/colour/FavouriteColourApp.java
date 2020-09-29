@@ -1,4 +1,4 @@
-package com.github.felipegutierrez.kafka.connector.stream.colour;
+package com.github.felipegutierrez.kafka.stream.colour;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.Serde;

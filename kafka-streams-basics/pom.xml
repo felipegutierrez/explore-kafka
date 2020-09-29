@@ -31,6 +31,11 @@
             <artifactId>kafka-streams-scala_${scala.binary.version}</artifactId>
             <version>${kafka.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+            <version>${kafka.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>io.confluent</groupId>
@@ -82,45 +87,17 @@
             <artifactId>scala-library</artifactId>
             <version>${scala.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
-<!--        <pluginManagement>-->
-<!--            <plugins>-->
-<!--                <plugin>-->
-<!--                    <groupId>net.alchim31.maven</groupId>-->
-<!--                    <artifactId>scala-maven-plugin</artifactId>-->
-<!--                    <version>4.1.0</version>-->
-<!--                </plugin>-->
-<!--                <plugin>-->
-<!--                    <groupId>org.apache.maven.plugins</groupId>-->
-<!--                    <artifactId>maven-compiler-plugin</artifactId>-->
-<!--                    <version>3.8.0</version>-->
-<!--                </plugin>-->
-<!--            </plugins>-->
-<!--        </pluginManagement>-->
         <plugins>
-<!--            <plugin>-->
-<!--                <groupId>net.alchim31.maven</groupId>-->
-<!--                <artifactId>scala-maven-plugin</artifactId>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>scala-compile-first</id>-->
-<!--                        <phase>process-resources</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>add-source</goal>-->
-<!--                            <goal>compile</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                    <execution>-->
-<!--                        <id>scala-test-compile</id>-->
-<!--                        <phase>process-test-resources</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>testCompile</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
             <!-- Maven Shade Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

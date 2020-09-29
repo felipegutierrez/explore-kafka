@@ -81,6 +81,70 @@
   </repositories>
   <dependencies>
     <dependency>
+      <groupId>org.scalatest</groupId>
+      <artifactId>scalatest_2.12</artifactId>
+      <version>3.2.2</version>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>scalatest-core_2.12</artifactId>
+          <groupId>org.scalatest</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>scalatest-featurespec_2.12</artifactId>
+          <groupId>org.scalatest</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>scalatest-flatspec_2.12</artifactId>
+          <groupId>org.scalatest</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>scalatest-freespec_2.12</artifactId>
+          <groupId>org.scalatest</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>scalatest-funsuite_2.12</artifactId>
+          <groupId>org.scalatest</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>scalatest-funspec_2.12</artifactId>
+          <groupId>org.scalatest</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>scalatest-propspec_2.12</artifactId>
+          <groupId>org.scalatest</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>scalatest-refspec_2.12</artifactId>
+          <groupId>org.scalatest</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>scalatest-wordspec_2.12</artifactId>
+          <groupId>org.scalatest</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>scalatest-diagrams_2.12</artifactId>
+          <groupId>org.scalatest</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>scalatest-matchers-core_2.12</artifactId>
+          <groupId>org.scalatest</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>scalatest-shouldmatchers_2.12</artifactId>
+          <groupId>org.scalatest</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>scalatest-mustmatchers_2.12</artifactId>
+          <groupId>org.scalatest</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>scala-reflect</artifactId>
+          <groupId>org.scala-lang</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.12</version>

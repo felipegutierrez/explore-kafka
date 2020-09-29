@@ -4,6 +4,7 @@ import com.github.felipegutierrez.kafka.connector.stream.twitter.KafkaStreamFilt
 import com.github.felipegutierrez.kafka.connector.stream.udemy.KafkaStreamUdemyAggregator;
 import com.github.felipegutierrez.kafka.connector.stream.udemy.KafkaStreamUdemyFraudDetector;
 import com.github.felipegutierrez.kafka.connector.stream.util.Parameters;
+import com.github.felipegutierrez.kafka.stream.bankbalance.BankBalanceExactlyOnce;
 import com.github.felipegutierrez.kafka.stream.bankbalance.BankTransactionsProducer;
 import com.github.felipegutierrez.kafka.stream.colour.FavouriteColourApp;
 import org.slf4j.Logger;
@@ -60,6 +61,11 @@ public class App {
                     BankTransactionsProducer bankTransactionsProducer = new BankTransactionsProducer();
                     app = 0;
                     break;
+                case 6:
+                    System.out.println("App 6 selected: " + BankBalanceExactlyOnce.class.getSimpleName());
+                    BankBalanceExactlyOnce bankBalanceExactlyOnce = new BankBalanceExactlyOnce();
+                    app = 0;
+                    break;
                 default:
                     args = null;
                     System.out.println("No application selected [" + app + "] ");
@@ -72,6 +78,7 @@ public class App {
             logger.info("3 - " + KafkaStreamUdemyAggregator.class.getSimpleName());
             logger.info("4 - " + FavouriteColourApp.class.getSimpleName());
             logger.info("5 - " + BankTransactionsProducer.class.getSimpleName());
+            logger.info("6 - " + BankBalanceExactlyOnce.class.getSimpleName());
             logger.info("use: java -jar kafka-streams-basics/target/kafka-streams-basics-1.0.jar -app [1|2|3]");
         }
     }

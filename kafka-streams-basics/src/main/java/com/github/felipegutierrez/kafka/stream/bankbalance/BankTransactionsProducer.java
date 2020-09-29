@@ -15,7 +15,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class BankTransactionsProducer {
 
-    private static final String topic = "bank-transaction";
+    private static final String topic = "bank-transactions";
     private final Logger logger = LoggerFactory.getLogger(BankTransactionsProducer.class);
     private final String bootstrapServers = "127.0.0.1:9092";
     private Boolean running;

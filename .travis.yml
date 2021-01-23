@@ -9,4 +9,8 @@ cache:
 branches:
   only:
     - master
-script: mvn clean package
+script:
+  - mvn clean package
+  - mvn cobertura:cobertura
+after_success:
+  - bash <(curl -s https://codecov.io/bash)

@@ -1,5 +1,6 @@
 
-[![Build Status](https://api.travis-ci.org/felipegutierrez/explore-kafka.svg?branch=master)](https://travis-ci.org/felipegutierrez/explore-kafka)
+[![Build Status](https://travis-ci.com/felipegutierrez/explore-kafka.svg?branch=master)](https://travis-ci.com/felipegutierrez/explore-kafka)
+[![codecov](https://codecov.io/gh/felipegutierrez/explore-kafka/branch/master/graph/badge.svg?token=7T36LK2UXE)](https://codecov.io/gh/felipegutierrez/explore-kafka)
 
 Using [Kafka 2.6.0](http://kafka.apache.org/) to implement and practice the exercises from the Apache Kafka Series:
 

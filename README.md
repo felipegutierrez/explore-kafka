@@ -1,8 +1,8 @@
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/0d693d5146a542c9909d13525e6b63ff)](https://app.codacy.com/gh/felipegutierrez/explore-kafka?utm_source=github.com&utm_medium=referral&utm_content=felipegutierrez/explore-kafka&utm_campaign=Badge_Grade)
 [![Build Status](https://travis-ci.com/felipegutierrez/explore-kafka.svg?branch=master)](https://travis-ci.com/felipegutierrez/explore-kafka)
 [![codecov](https://codecov.io/gh/felipegutierrez/explore-kafka/branch/master/graph/badge.svg?token=7T36LK2UXE)](https://codecov.io/gh/felipegutierrez/explore-kafka)
 [![CodeFactor](https://www.codefactor.io/repository/github/felipegutierrez/explore-kafka/badge)](https://www.codefactor.io/repository/github/felipegutierrez/explore-kafka)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/0d693d5146a542c9909d13525e6b63ff)](https://app.codacy.com/gh/felipegutierrez/explore-kafka?utm_source=github.com&utm_medium=referral&utm_content=felipegutierrez/explore-kafka&utm_campaign=Badge_Grade)
 ![Lines of code](https://img.shields.io/tokei/lines/github/felipegutierrez/explore-kafka)
 
 Using [Kafka 2.6.0](http://kafka.apache.org/) to implement and practice the exercises from the Apache Kafka Series:

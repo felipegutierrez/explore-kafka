@@ -6,7 +6,7 @@ import com.github.felipegutierrez.kafka.connector.config.VersionUtil;
 import com.github.felipegutierrez.kafka.connector.model.Issue;
 import com.github.felipegutierrez.kafka.connector.model.PullRequest;
 import com.github.felipegutierrez.kafka.connector.model.User;
-import com.github.felipegutierrez.kafka.connector.stream.util.DateUtils;
+import com.github.felipegutierrez.kafka.util.DateUtils;
 import org.apache.kafka.connect.data.Struct;
 import org.apache.kafka.connect.source.SourceRecord;
 import org.apache.kafka.connect.source.SourceTask;

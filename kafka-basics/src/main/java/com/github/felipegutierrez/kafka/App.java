@@ -1,5 +1,4 @@
-package com.github.felipegutierrez.kafka.connector.stream.app;
-
+package com.github.felipegutierrez.kafka;
 
 import com.github.felipegutierrez.kafka.connector.basics.consumers.ConsumerDemo;
 import com.github.felipegutierrez.kafka.connector.basics.consumers.ConsumerDemoAssignSeek;
@@ -7,7 +6,7 @@ import com.github.felipegutierrez.kafka.connector.basics.consumers.ConsumerDemoW
 import com.github.felipegutierrez.kafka.connector.basics.producers.ProducerAsync;
 import com.github.felipegutierrez.kafka.connector.basics.producers.ProducerAsyncCallback;
 import com.github.felipegutierrez.kafka.connector.basics.producers.ProducerAsyncCallbackKeys;
-import com.github.felipegutierrez.kafka.connector.stream.util.Parameters;
+import com.github.felipegutierrez.kafka.util.Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

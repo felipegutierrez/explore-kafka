@@ -3,7 +3,7 @@ package com.github.felipegutierrez.kafka.app;
 import com.github.felipegutierrez.kafka.connector.stream.twitter.KafkaStreamFilterTweets;
 import com.github.felipegutierrez.kafka.connector.stream.udemy.KafkaStreamUdemyAggregator;
 import com.github.felipegutierrez.kafka.connector.stream.udemy.KafkaStreamUdemyFraudDetector;
-import com.github.felipegutierrez.kafka.connector.stream.util.Parameters;
+import com.github.felipegutierrez.kafka.util.Parameters;
 import com.github.felipegutierrez.kafka.stream.bankbalance.BankBalanceExactlyOnce;
 import com.github.felipegutierrez.kafka.stream.bankbalance.BankTransactionsProducer;
 import com.github.felipegutierrez.kafka.stream.colour.FavouriteColourApp;

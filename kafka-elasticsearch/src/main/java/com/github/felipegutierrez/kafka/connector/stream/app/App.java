@@ -4,7 +4,7 @@ import com.github.felipegutierrez.kafka.elasticsearch.consumer.ElasticSearchCons
 import com.github.felipegutierrez.kafka.elasticsearch.consumer.ElasticSearchConsumerWithBulkRequest;
 import com.github.felipegutierrez.kafka.elasticsearch.consumer.ElasticSearchConsumerWithIdempotentRequests;
 import com.github.felipegutierrez.kafka.elasticsearch.consumer.ElasticSearchConsumerWithIdempotentRequestsAndSyncbatchCommit;
-import com.github.felipegutierrez.kafka.connector.stream.util.Parameters;
+import com.github.felipegutierrez.kafka.util.Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

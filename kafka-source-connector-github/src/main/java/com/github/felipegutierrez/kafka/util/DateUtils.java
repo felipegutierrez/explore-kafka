@@ -1,4 +1,4 @@
-package com.github.felipegutierrez.kafka.connector.stream.util;
+package com.github.felipegutierrez.kafka.util;
 
 import java.time.Instant;
 

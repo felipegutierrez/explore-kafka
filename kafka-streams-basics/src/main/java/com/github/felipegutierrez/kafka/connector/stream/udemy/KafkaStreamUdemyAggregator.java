@@ -1,6 +1,6 @@
 package com.github.felipegutierrez.kafka.connector.stream.udemy;
 
-import com.github.felipegutierrez.kafka.connector.stream.util.UdemyConfig;
+import com.github.felipegutierrez.kafka.util.UdemyConfig;
 import com.github.felipegutierrez.kafka.registry.avro.udemy.Review;
 import com.github.felipegutierrez.kafka.stream.avro.udemy.CourseStatistic;
 import com.typesafe.config.ConfigFactory;

@@ -49,7 +49,7 @@
                             <transformers>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.github.felipegutierrez.kafka.connector.stream.app.App</mainClass>
+                                    <mainClass>com.github.felipegutierrez.kafka.App</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>

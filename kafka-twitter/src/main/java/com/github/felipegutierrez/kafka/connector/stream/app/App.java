@@ -1,7 +1,7 @@
 package com.github.felipegutierrez.kafka.connector.stream.app;
 
 import com.github.felipegutierrez.kafka.connector.basics.producers.TwitterProducer;
-import com.github.felipegutierrez.kafka.connector.stream.util.Parameters;
+import com.github.felipegutierrez.kafka.util.Parameters;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

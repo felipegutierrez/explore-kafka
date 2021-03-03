@@ -12,6 +12,7 @@ import java.util.Properties;
  */
 public class ProducerAsync {
     private final String bootstrapServers = "127.0.0.1:9092";
+    private final KafkaProducer<String, String> producer;
 
     public ProducerAsync() {
         // create properties
@@ -21,10 +22,11 @@ public class ProducerAsync {
         properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 
         // create producer
-        KafkaProducer<String, String> producer = new KafkaProducer<String, String>(properties);
+        this.producer = new KafkaProducer<String, String>(properties);
+    }
 
+    public void sendData(ProducerRecord<String, String> record) {
         // create producer record
-        ProducerRecord<String, String> record = new ProducerRecord<String, String>("first-topic", "01, hello world!");
 
         // send data asynchronous
         producer.send(record);

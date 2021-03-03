@@ -7,6 +7,7 @@ import com.github.felipegutierrez.kafka.connector.basics.producers.ProducerAsync
 import com.github.felipegutierrez.kafka.connector.basics.producers.ProducerAsyncCallback;
 import com.github.felipegutierrez.kafka.connector.basics.producers.ProducerAsyncCallbackKeys;
 import com.github.felipegutierrez.kafka.util.Parameters;
+import org.apache.kafka.clients.producer.ProducerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,7 +40,8 @@ public class App {
                     break;
                 case 1:
                     System.out.println("App 1 selected: " + ProducerAsync.class.getSimpleName());
-                    new ProducerAsync();
+                    ProducerAsync producerAsync = new ProducerAsync();
+                    producerAsync.sendData(new ProducerRecord<String, String>("first-topic", "01, hello world!"));
                     app = 0;
                     break;
                 case 2:

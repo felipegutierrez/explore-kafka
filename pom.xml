@@ -34,6 +34,7 @@
         <scala.version>2.12.7</scala.version>
         <twitter.hbc.version>2.2.0</twitter.hbc.version>
         <jackson.version>2.11.1</jackson.version>
+        <mockito.version>1.10.19</mockito.version>
         <elasticsearch.version>7.8.1</elasticsearch.version>
         <google.code.gson>2.8.6</google.code.gson>
         <junit.version>4.12</junit.version>

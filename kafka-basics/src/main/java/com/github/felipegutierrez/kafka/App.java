@@ -5,7 +5,6 @@ import com.github.felipegutierrez.kafka.connector.basics.consumers.ConsumerDemoA
 import com.github.felipegutierrez.kafka.connector.basics.consumers.ConsumerDemoWithThreads;
 import com.github.felipegutierrez.kafka.connector.basics.producers.ProducerAsync;
 import com.github.felipegutierrez.kafka.connector.basics.producers.ProducerAsyncCallback;
-import com.github.felipegutierrez.kafka.connector.basics.producers.ProducerAsyncCallbackKeys;
 import com.github.felipegutierrez.kafka.util.Parameters;
 import com.github.felipegutierrez.kafka.util.RecordUtils;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -56,8 +55,11 @@ public class App {
                     app = 0;
                     break;
                 case 3:
-                    System.out.println("App 3 selected: " + ProducerAsyncCallbackKeys.class.getSimpleName());
-                    new ProducerAsyncCallbackKeys();
+                    System.out.println("App 3 selected: " + ProducerAsyncCallback.class.getSimpleName());
+                    ProducerAsyncCallback producerAsyncCallbackWithKeys = new ProducerAsyncCallback();
+                    List<ProducerRecord<String, String>> listWithKeys = RecordUtils.getProducerRecordWithKeyList("first-topic", "hello world", 10);
+                    producerAsyncCallbackWithKeys.sendData(listWithKeys);
+                    producerAsyncCallbackWithKeys.closeProducer();
                     app = 0;
                     break;
                 case 4:
@@ -84,7 +86,7 @@ public class App {
             logger.info("Applications available");
             logger.info("1 - " + ProducerAsync.class.getSimpleName());
             logger.info("2 - " + ProducerAsyncCallback.class.getSimpleName());
-            logger.info("3 - " + ProducerAsyncCallbackKeys.class.getSimpleName());
+            logger.info("3 - " + ProducerAsyncCallback.class.getSimpleName() + " with keys");
             logger.info("4 - " + ConsumerDemo.class.getSimpleName());
             logger.info("5 - " + ConsumerDemoWithThreads.class.getSimpleName());
             logger.info("6 - " + ConsumerDemoAssignSeek.class.getSimpleName());

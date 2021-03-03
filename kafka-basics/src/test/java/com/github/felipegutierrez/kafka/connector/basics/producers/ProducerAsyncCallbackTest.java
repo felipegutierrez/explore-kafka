@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -45,6 +46,43 @@ public class ProducerAsyncCallbackTest {
         List<ProducerRecord> actualRecordList = captor.getValue();
         assertEquals(threshold, actualRecordList.size());
         assertEquals(topic, actualRecordList.get(0).topic());
+
+        assertEquals(message + " 1", actualRecordList.get(0).value());
+        assertEquals(message + " 2", actualRecordList.get(1).value());
+
+        assertNotEquals(message + " 0", actualRecordList.get(0).value());
+        assertNotEquals(message + " 1", actualRecordList.get(1).value());
+    }
+
+    @Test
+    public void verifyIfProducerSendsDataWithKey() {
+
+        String topic = "first-topic";
+        String message = "hello world";
+        int threshold = 10;
+
+        List<ProducerRecord<String, String>> records = new ArrayList<ProducerRecord<String, String>>();
+
+        IntStream.rangeClosed(1, threshold).forEach(i -> {
+            records.add(new ProducerRecord<String, String>(topic, "key_" + i, message + " " + i));
+        });
+
+        ArgumentCaptor<List> captor = ArgumentCaptor.forClass(List.class);
+
+        producerAsyncCallbackMock.sendData(records);
+
+        verify(producerAsyncCallbackMock).sendData(captor.capture());
+
+        List<ProducerRecord> actualRecordList = captor.getValue();
+        assertEquals(threshold, actualRecordList.size());
+        assertEquals(topic, actualRecordList.get(0).topic());
+
+        assertEquals("key_1", actualRecordList.get(0).key());
+        assertEquals("key_2", actualRecordList.get(1).key());
+
+        assertNotEquals("key_0", actualRecordList.get(0).key());
+        assertNotEquals("key_1", actualRecordList.get(1).key());
+
         assertEquals(message + " 1", actualRecordList.get(0).value());
         assertEquals(message + " 2", actualRecordList.get(1).value());
     }

@@ -25,4 +25,14 @@ public class RecordUtils {
                 });
         return records;
     }
+
+    public static List<ProducerRecord<String, String>> getProducerRecordWithKeyList(String topic, String message, int threshold) {
+        List<ProducerRecord<String, String>> records = new ArrayList<ProducerRecord<String, String>>();
+
+        IntStream.rangeClosed(1, threshold)
+                .forEach(i -> {
+                    records.add(new ProducerRecord<String, String>(topic, "id_" + i, message + " " + i));
+                });
+        return records;
+    }
 }

@@ -64,7 +64,9 @@ public class App {
                     break;
                 case 4:
                     System.out.println("App 4 selected: " + ConsumerDemo.class.getSimpleName());
-                    new ConsumerDemo();
+                    ConsumerDemo consumerDemo = new ConsumerDemo();
+                    consumerDemo.subscribe();
+                    consumerDemo.startConsuming();
                     app = 0;
                     break;
                 case 5:

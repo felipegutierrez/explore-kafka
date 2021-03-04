@@ -1,7 +1,7 @@
 package com.github.felipegutierrez.kafka.basics.consumers;
 
+import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.Properties;
+import java.util.stream.StreamSupport;
 
 /**
  * https://kafka.apache.org/documentation/#consumerconfigs
@@ -19,7 +20,8 @@ public class ConsumerDemo {
     private final Logger logger = LoggerFactory.getLogger(ConsumerDemo.class);
     private final String bootstrapServers = "127.0.0.1:9092";
     private final String groupId = "first-app";
-    private final String topic = "first-topic";
+    private Consumer<String, String> consumer;
+    private Boolean running = false;
 
     public ConsumerDemo() {
         // create properties
@@ -31,19 +33,46 @@ public class ConsumerDemo {
         properties.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 
         // create consumer
-        KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(properties);
+        this.consumer = new KafkaConsumer<String, String>(properties);
+    }
 
+    public Consumer<String, String> getConsumer() {
+        return consumer;
+    }
+
+    public void setConsumer(Consumer<String, String> consumer) {
+        this.consumer = consumer;
+    }
+
+    public void subscribe() {
+        subscribe("first-topic");
+    }
+
+    public void subscribe(String topic) {
         // subscribe consumer to our topic(s)
         consumer.subscribe(Arrays.asList(topic));
+    }
 
-        // poll for new data
-        while (true) {
-            ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
+    public void startConsuming() {
+        try {
+            running = true;
+            // poll for new data
+            while (running) {
+                ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
 
-            for (ConsumerRecord<String, String> record : records) {
-                logger.info("Key:" + record.key() + " Value:" + record.value() +
-                        " Partition:" + record.partition() + " Offset:" + record.offset());
+                StreamSupport.stream(records.spliterator(), false)
+                        .map(record -> "Key:" + record.key() + " Value:" + record.value() + " Partition:" + record.partition() + " Offset:" + record.offset())
+                        .forEach(message -> logger.info(message));
+                this.consumer.commitSync();
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.consumer.close();
         }
+    }
+
+    public void stopConsuming() {
+        running = false;
     }
 }

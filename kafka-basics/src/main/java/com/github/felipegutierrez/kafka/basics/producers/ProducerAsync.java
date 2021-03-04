@@ -1,4 +1,4 @@
-package com.github.felipegutierrez.kafka.connector.basics.producers;
+package com.github.felipegutierrez.kafka.basics.producers;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;

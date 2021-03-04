@@ -1,4 +1,4 @@
-package com.github.felipegutierrez.kafka.connector.basics.producers;
+package com.github.felipegutierrez.kafka.basics.producers;
 
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.junit.Rule;

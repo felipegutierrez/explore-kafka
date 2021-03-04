@@ -1,10 +1,10 @@
 package com.github.felipegutierrez.kafka;
 
-import com.github.felipegutierrez.kafka.connector.basics.consumers.ConsumerDemo;
-import com.github.felipegutierrez.kafka.connector.basics.consumers.ConsumerDemoAssignSeek;
-import com.github.felipegutierrez.kafka.connector.basics.consumers.ConsumerDemoWithThreads;
-import com.github.felipegutierrez.kafka.connector.basics.producers.ProducerAsync;
-import com.github.felipegutierrez.kafka.connector.basics.producers.ProducerAsyncCallback;
+import com.github.felipegutierrez.kafka.basics.consumers.ConsumerDemo;
+import com.github.felipegutierrez.kafka.basics.consumers.ConsumerDemoAssignSeek;
+import com.github.felipegutierrez.kafka.basics.consumers.ConsumerDemoWithThreads;
+import com.github.felipegutierrez.kafka.basics.producers.ProducerAsync;
+import com.github.felipegutierrez.kafka.basics.producers.ProducerAsyncCallback;
 import com.github.felipegutierrez.kafka.util.Parameters;
 import com.github.felipegutierrez.kafka.util.RecordUtils;
 import org.apache.kafka.clients.producer.ProducerRecord;

@@ -1,5 +1,4 @@
-
-[![Build Status](https://travis-ci.com/felipegutierrez/explore-kafka.svg?branch=master)](https://travis-ci.com/felipegutierrez/explore-kafka)
+[![Java CI with Maven](https://github.com/felipegutierrez/explore-kafka/actions/workflows/maven.yml/badge.svg)](https://github.com/felipegutierrez/explore-kafka/actions/workflows/maven.yml)
 [![codecov](https://codecov.io/gh/felipegutierrez/explore-kafka/branch/master/graph/badge.svg?token=7T36LK2UXE)](https://codecov.io/gh/felipegutierrez/explore-kafka)
 [![CodeFactor](https://www.codefactor.io/repository/github/felipegutierrez/explore-kafka/badge)](https://www.codefactor.io/repository/github/felipegutierrez/explore-kafka)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/0d693d5146a542c9909d13525e6b63ff)](https://app.codacy.com/gh/felipegutierrez/explore-kafka?utm_source=github.com&utm_medium=referral&utm_content=felipegutierrez/explore-kafka&utm_campaign=Badge_Grade)

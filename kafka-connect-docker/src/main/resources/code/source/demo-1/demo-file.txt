@@ -1,3 +1,6 @@
-hello kafka connector
+hello kafka 2.8.0 connector
 we are using kafka File stream connector
+01, now we are testing key-value pairs
+felipe
+102:felipe oliveira gutierrez
 01, now we are testing key-value pairs

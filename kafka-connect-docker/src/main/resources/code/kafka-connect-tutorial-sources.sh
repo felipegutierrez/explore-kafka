@@ -19,7 +19,7 @@ sudo docker-compose up kafka-cluster -d
 # We start a hosted tools, mapped on our code
 # Linux / Mac
 cd explore-kafka/kafka-connect-docker/src/main/resources/code
-sudo docker run --rm -it -v "$(pwd)":/tutorial --net=host landoop/fast-data-dev:cp3.3.0 bash
+sudo docker run --rm -it -v "$(pwd)":/tutorial --net=host landoop/fast-data-dev:2.6.2 bash
 # Windows Command Line:
 #docker run --rm -it -v %cd%:/tutorial --net=host landoop/fast-data-dev:cp3.3.0 bash
 # Windows Powershell:
@@ -38,7 +38,7 @@ connect-standalone worker.properties file-stream-demo-standalone.properties
 ###############
 # B) FileStreamSourceConnector in distributed mode:
 # create the topic we're going to write to
-sudo docker run --rm -it --net=host landoop/fast-data-dev:cp3.3.0 bash
+sudo docker run --rm -it --net=host landoop/fast-data-dev:2.6.2 bash
 kafka-topics --create --topic demo-2-distributed --partitions 3 --replication-factor 1 --zookeeper 127.0.0.1:2181
 # you can now close the new shell
 
@@ -55,7 +55,7 @@ echo "hello" >> demo-file.txt
 echo "from the other side" >> demo-file.txt
 
 # Read the topic data
-sudo docker run --rm -it --net=host landoop/fast-data-dev:cp3.3.0 bash
+sudo docker run --rm -it --net=host landoop/fast-data-dev:2.6.2 bash
 kafka-console-consumer --topic demo-2-distributed --from-beginning --bootstrap-server 127.0.0.1:9092
 # observe we now have json as an output, even though the input was text!
 ###############
@@ -63,7 +63,7 @@ kafka-console-consumer --topic demo-2-distributed --from-beginning --bootstrap-s
 ###############
 # C) TwitterSourceConnector in distributed mode:
 # create the topic we're going to write to
-sudo docker run --rm -it --net=host landoop/fast-data-dev:cp3.3.0 bash
+sudo docker run --rm -it --net=host landoop/fast-data-dev:2.6.2 bash
 kafka-topics --create --topic demo-3-twitter --partitions 3 --replication-factor 1 --zookeeper 127.0.0.1:2181
 # Start a console consumer on that topic
 kafka-console-consumer --topic demo-3-twitter --bootstrap-server 127.0.0.1:9092

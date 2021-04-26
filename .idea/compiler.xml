@@ -6,23 +6,24 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="explore-kafka.kafka-rest-proxy" />
+        <module name="kafka-rest-proxy" />
+        <module name="kafka-twitter" />
+        <module name="explore-kafka.kafka-schema-registry-docker" />
+        <module name="explore-kafka.kafka-connect-docker" />
         <module name="kafka-schema-registry-avro-V1" />
         <module name="kafka-cluster-setup" />
         <module name="kafka-connect-docker" />
         <module name="kafka-schema-registry-docker" />
-        <module name="kafka-rest-proxy" />
-        <module name="kafka-twitter" />
         <module name="kafka-schema-registry-avro-V2" />
         <module name="kafka-source-connector-github" />
         <module name="kafka-streams-basics" />
         <module name="kafka-basics" />
         <module name="kafka-elasticsearch" />
         <module name="avro-examples" />
+        <module name="explore-kafka.kafka-cluster-setup" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="kafka-connector" target="8" />
-      <module name="kafka-schema-registry-avro" target="8" />
-    </bytecodeTargetLevel>
+    <bytecodeTargetLevel target="11" />
   </component>
 </project>

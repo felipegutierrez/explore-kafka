@@ -5,27 +5,19 @@
     <file url="file://$PROJECT_DIR$/avro-examples/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/avro-examples/target/generated-sources/avro" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafka-basics/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/kafka-basics/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/kafka-cluster-setup/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/kafka-cluster-setup/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/kafka-connect-docker/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafka-connect-docker/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafka-elasticsearch/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/kafka-elasticsearch/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/kafka-rest-proxy/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafka-rest-proxy/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafka-schema-registry-avro-V1/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafka-schema-registry-avro-V1/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/kafka-schema-registry-avro-V1/target/generated-sources/avro" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafka-schema-registry-avro-V2/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafka-schema-registry-avro-V2/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/kafka-schema-registry-docker/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/kafka-schema-registry-avro-V2/target/generated-sources/avro" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafka-schema-registry-docker/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafka-source-connector-github/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/kafka-source-connector-github/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafka-streams-basics/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafka-streams-basics/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafka-twitter/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/kafka-twitter/src/main/resources" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
   </component>
 </project>

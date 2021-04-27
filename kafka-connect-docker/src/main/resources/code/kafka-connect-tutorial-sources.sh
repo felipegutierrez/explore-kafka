@@ -5,9 +5,11 @@
 
 # 1) Source connectors
 # Start our kafka cluster
-sudo docker-compose up kafka-cluster -d
-# Stopu the kafka cluster
+# sudo docker-compose up kafka-cluster -d
+confluent local services start
+# Stop the kafka cluster
 # sudo docker-compose down
+confluent local services stop
 # Wait 2 minutes for the kafka cluster to be started and access: http://127.0.0.1:3030/
 
 ###############

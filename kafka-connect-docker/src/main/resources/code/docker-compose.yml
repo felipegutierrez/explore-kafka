@@ -17,17 +17,34 @@ services:
   # we will use elasticsearch as one of our sinks.
   # This configuration allows you to start elasticsearch
   elasticsearch:
-    image: itzg/elasticsearch:2.4.3
+    image: itzg/elasticsearch:5.5
+    container_name: elasticsearch
     environment:
-      PLUGINS: appbaseio/dejavu
-      OPTS: -Dindex.number_of_shards=1 -Dindex.number_of_replicas=0
+      - discovery.type=single-node
+      - http.port=9200
+      - http.cors.enabled=true
+      - http.cors.allow-origin=http://localhost:1358,http://127.0.0.1:1358
+      - http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization
+      - http.cors.allow-credentials=true
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ports:
       - "9200:9200"
+      - "9300:9300"
+
+  # elasticsearch browser
+  dejavu:
+    image: appbaseio/dejavu:3.2.3
+    container_name: dejavu
+    ports:
+      - "1358:1358"
+    links:
+      - elasticsearch
 
   # we will use postgres as one of our sinks.
   # This configuration allows you to start postgres
   postgres:
-    image: postgres:9.5-alpine
+    image: postgres:9.6.21-alpine
     environment:
       POSTGRES_USER: postgres     # define credentials
       POSTGRES_PASSWORD: postgres # define credentials

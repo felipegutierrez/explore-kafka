@@ -59,6 +59,8 @@ public class GitHubAPIHttpClient {
                     log.info(String.format("Sleeping for %s seconds", sleepTime));
                     Thread.sleep(1000 * sleepTime);
                     return getNextIssues(page, since);
+                case 404:
+                    throw new ConnectException("NotFount GitHub URL, please edit your config");
                 default:
                     log.error(constructUrl(page, since));
                     log.error(String.valueOf(jsonResponse.getStatus()));

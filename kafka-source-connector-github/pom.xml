@@ -14,12 +14,19 @@
     <modelVersion>4.0.0</modelVersion>
     <name>kafka-source-connector-github</name>
 
+    <repositories>
+        <repository>
+            <id>confluent</id>
+            <url>http://packages.confluent.io/maven/</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>connect-api</artifactId>
             <version>${kafka.version}</version>
-            <!--            <version>0.10.2.0-cp1</version>-->
+            <!--<version>0.10.2.0-cp1</version>-->
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -79,11 +86,4 @@
             </resource>
         </resources>
     </build>
-
-    <repositories>
-        <repository>
-            <id>confluent</id>
-            <url>http://packages.confluent.io/maven/</url>
-        </repository>
-    </repositories>
 </project>

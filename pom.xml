@@ -37,7 +37,7 @@
         <mockito.version>1.10.19</mockito.version>
         <elasticsearch.version>7.8.1</elasticsearch.version>
         <google.code.gson>2.8.6</google.code.gson>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13</junit.version>
         <mashape.unirest>1.4.9</mashape.unirest>
         <avro.version>1.10.0</avro.version>
         <confluent.version>5.5.1</confluent.version>

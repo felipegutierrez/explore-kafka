@@ -29,6 +29,8 @@ public class GitHubSourceTaskTest {
         baseProps.put(SINCE_CONFIG, "2017-04-26T01:23:44Z");
         baseProps.put(BATCH_SIZE_CONFIG, batchSize.toString());
         baseProps.put(TOPIC_CONFIG, "github-issues");
+        baseProps.put(GROUP_ID_CONFIG, "1");
+        baseProps.put(OFFSET_STORAGE_TOPIC_CONFIG, "offset-storage-topic");
         return baseProps;
     }
 
@@ -39,6 +41,8 @@ public class GitHubSourceTaskTest {
         baseProps.put(SINCE_CONFIG, "2017-04-26T01:23:44Z");
         baseProps.put(BATCH_SIZE_CONFIG, batchSize.toString());
         baseProps.put(TOPIC_CONFIG, "github-issues");
+        baseProps.put(GROUP_ID_CONFIG, "1");
+        baseProps.put(OFFSET_STORAGE_TOPIC_CONFIG, "offset-storage-topic");
         return baseProps;
     }
 
@@ -49,6 +53,19 @@ public class GitHubSourceTaskTest {
         baseProps.put(SINCE_CONFIG, "2017-04-26");
         baseProps.put(BATCH_SIZE_CONFIG, batchSize.toString());
         baseProps.put(TOPIC_CONFIG, "github-issues");
+        baseProps.put(GROUP_ID_CONFIG, "1");
+        baseProps.put(OFFSET_STORAGE_TOPIC_CONFIG, "offset-storage-topic");
+        return baseProps;
+    }
+
+    private Map<String, String> initialConfigMissingGroupId() {
+        Map<String, String> baseProps = new HashMap<>();
+        baseProps.put(OWNER_CONFIG, "apache");
+        baseProps.put(REPO_CONFIG, "kafka");
+        baseProps.put(SINCE_CONFIG, "2017-04-26");
+        baseProps.put(BATCH_SIZE_CONFIG, batchSize.toString());
+        baseProps.put(TOPIC_CONFIG, "github-issues");
+        baseProps.put(OFFSET_STORAGE_TOPIC_CONFIG, "offset-storage-topic");
         return baseProps;
     }
 
@@ -88,9 +105,25 @@ public class GitHubSourceTaskTest {
     }
 
     @Test
-    public void test_wrongTimestamp() throws UnirestException {
+    public void test_wrongTimestamp() {
         try {
             gitHubSourceTask.config = new GitHubSourceConnectorConfig(initialConfigWrongTime());
+            fail("It should have a KafkaException here.");
+            gitHubSourceTask.nextPageToVisit = 1;
+            gitHubSourceTask.nextQuerySince = Instant.parse("2017-01-01T00:00:00Z");
+            gitHubSourceTask.gitHubHttpAPIClient = new GitHubAPIHttpClient(gitHubSourceTask.config);
+            String url = gitHubSourceTask.gitHubHttpAPIClient.constructUrl(gitHubSourceTask.nextPageToVisit, gitHubSourceTask.nextQuerySince);
+        } catch (Exception ex) {
+            if (!(ex instanceof KafkaException)) {
+                fail("There is an exception but it is not a KafkaException.");
+            }
+        }
+    }
+
+    @Test
+    public void test_missingGroupId() {
+        try {
+            gitHubSourceTask.config = new GitHubSourceConnectorConfig(initialConfigMissingGroupId());
             fail("It should have a KafkaException here.");
             gitHubSourceTask.nextPageToVisit = 1;
             gitHubSourceTask.nextQuerySince = Instant.parse("2017-01-01T00:00:00Z");

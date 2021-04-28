@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # make sure that you execute "mvn clean package" first to create the jar file
+# confluent local services start
 
 # export the path
 # export CLASSPATH="$(find target/kafka-source-connector-github-1.0/ -type f -name '*.jar'| grep '\-package' | tr '\n' ':')"

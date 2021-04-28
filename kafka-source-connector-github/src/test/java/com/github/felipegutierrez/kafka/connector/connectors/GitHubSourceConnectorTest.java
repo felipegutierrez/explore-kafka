@@ -17,6 +17,8 @@ public class GitHubSourceConnectorTest {
         baseProps.put(SINCE_CONFIG, "2017-04-26T01:23:45Z");
         baseProps.put(BATCH_SIZE_CONFIG, "100");
         baseProps.put(TOPIC_CONFIG, "github-issues");
+        baseProps.put(GROUP_ID_CONFIG, "1");
+        baseProps.put(OFFSET_STORAGE_TOPIC_CONFIG, "offset-storage-topic");
         return (baseProps);
     }
 

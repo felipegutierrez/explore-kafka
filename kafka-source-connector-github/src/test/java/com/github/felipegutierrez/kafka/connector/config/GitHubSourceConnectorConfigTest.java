@@ -24,6 +24,8 @@ public class GitHubSourceConnectorConfigTest {
         config.put(SINCE_CONFIG, "2017-04-26T01:23:45Z");
         config.put(BATCH_SIZE_CONFIG, "100");
         config.put(TOPIC_CONFIG, "github-issues");
+        config.put(GROUP_ID_CONFIG, "1");
+        config.put(OFFSET_STORAGE_TOPIC_CONFIG, "offset-storage-topic");
     }
 
     @Test

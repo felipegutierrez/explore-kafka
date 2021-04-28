@@ -13,6 +13,8 @@ import java.util.Map;
 
 public class GitHubSourceConnectorConfig extends AbstractConfig {
     public static final String TOPIC_CONFIG = "topic";
+    public static final String GROUP_ID_CONFIG = "group.id";
+    public static final String OFFSET_STORAGE_TOPIC_CONFIG = "offset.storage.topic";
     public static final String OWNER_CONFIG = "github.owner";
     public static final String REPO_CONFIG = "github.repo";
     public static final String SINCE_CONFIG = "since.timestamp";
@@ -20,6 +22,12 @@ public class GitHubSourceConnectorConfig extends AbstractConfig {
     public static final String AUTH_USERNAME_CONFIG = "auth.username";
     public static final String AUTH_PASSWORD_CONFIG = "auth.password";
     private static final String TOPIC_DOC = "Topic to write to";
+    private static final String GROUP_ID_DOC = "A unique string that identifies the Connect cluster group this worker belongs to";
+    private static final String OFFSET_STORAGE_TOPIC_DOC = "The topic to store offset data for connectors in. \n" +
+            "This must be the same for all workers with the same group.id. \n" +
+            "To support large Kafka Connect clusters, this topic should have a large number of partitions \n" +
+            "(e.g. 25 or 50, just like Kafka’s built-in __consumer_offsets topic) and highly replicated (3x or more). \n" +
+            "This topic should be compacted to avoid losing data due to retention policy.";
     private static final String OWNER_DOC = "Owner of the repository you'd like to follow";
     private static final String REPO_DOC = "Repository you'd like to follow";
     private static final String SINCE_DOC =
@@ -42,6 +50,8 @@ public class GitHubSourceConnectorConfig extends AbstractConfig {
     public static ConfigDef conf() {
         return new ConfigDef()
                 .define(TOPIC_CONFIG, Type.STRING, Importance.HIGH, TOPIC_DOC)
+                .define(GROUP_ID_CONFIG, Type.STRING, Importance.HIGH, GROUP_ID_DOC)
+                .define(OFFSET_STORAGE_TOPIC_CONFIG, Type.STRING, Importance.HIGH, OFFSET_STORAGE_TOPIC_DOC)
                 .define(OWNER_CONFIG, Type.STRING, Importance.HIGH, OWNER_DOC)
                 .define(REPO_CONFIG, Type.STRING, Importance.HIGH, REPO_DOC)
                 .define(BATCH_SIZE_CONFIG, Type.INT, 100, new BatchSizeValidator(), Importance.LOW, BATCH_SIZE_DOC)

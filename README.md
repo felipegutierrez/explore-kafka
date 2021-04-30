@@ -296,7 +296,6 @@ java -jar kafka-basics/target/kafka-basics-1.0.jar -app [1|2|3|4|5|6]
 java -jar kafka-twitter/target/kafka-twitter-1.0.jar -app 1 -elements "corona|covid|covid-19"
 java -jar kafka-elasticsearch/target/kafka-elasticsearch-1.0.jar -app [1|2|3|4]
 java -jar kafka-streams-basics/target/kafka-streams-basics-1.0.jar -app [1|2]
-java -jar kafka-source-connector-github/target/kafka-source-connector-github-1.0.jar -app [1]
 java -jar avro-examples/target/avro-examples-1.0.jar -app [1|2|3|4]
 java -jar kafka-schema-registry-avro-V1/target/kafka-schema-registry-avro-V1-1.0.jar -app [1|2|3]
 java -jar kafka-schema-registry-avro-V2/target/kafka-schema-registry-avro-V2-1.0.jar -app [1|2]

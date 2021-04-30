@@ -17,7 +17,6 @@
         <module name="kafka-connect-docker" />
         <module name="kafka-schema-registry-docker" />
         <module name="kafka-schema-registry-avro-V2" />
-        <module name="kafka-source-connector-github" />
         <module name="kafka-streams-basics" />
         <module name="kafka-basics" />
         <module name="kafka-elasticsearch" />
@@ -25,6 +24,9 @@
         <module name="explore-kafka.kafka-cluster-setup" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="11" />
+    <bytecodeTargetLevel target="11">
+      <module name="kafka-connect-github-source" target="8" />
+      <module name="kafka-source-connector-github" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
